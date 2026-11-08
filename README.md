@@ -1,9 +1,12 @@
 # Worldwright
 
 Worldwright is a standalone, open-source editor for creating World of Warcraft
-3.3.5a world definitions and flat terrain. W004.5 provides a focused 2D
+3.3.5a world definitions and terrain. W004.5 provides a focused 2D
 desktop editor for laying out a 64 x 64 world grid, assigning a flat elevation
 to each enabled tile, and exporting loose WDT and ADT development assets.
+W005A adds a reusable, headless terrain-height engine with raise, lower,
+smoothing, cross-ADT brushes, and exact shared-edge consistency. Its operations
+are available to core code; a graphical sculpting interface is future work.
 
 The repository also provides the existing command-line tools:
 
@@ -101,11 +104,23 @@ The result can be checked with:
 ./build/worldwright-wdt-info /path/to/export/NewWorld.wdt --list
 ```
 
+## Terrain-height engine
+
+The Qt-independent `TerrainHeightEditor` edits the existing staggered outer and
+inner vertex grids directly. Brushes use linear distance falloff in a common
+world space, can span enabled ADTs, and do not create missing tiles. Smoothing
+uses a source snapshot and the actual outer-to-inner mesh neighborhood.
+Horizontal, vertical, and four-tile corner copies receive one canonical result
+to prevent cracks and repeated-edit drift. See
+[the W005A terrain documentation](docs/TERRAIN_HEIGHT_EDITOR.md) for coordinate
+and seam policies.
+
 ## Current limitations
 
-W004.5 is a 2D layout editor. It creates one active world at a time and supports
-only a single flat elevation per enabled tile. It does not provide 3D terrain
-rendering, sculpting, texture painting, water, object or NPC placement, DBC
+The current GUI remains a 2D layout editor. It creates one active world at a
+time and exposes only flat elevation assignment; it does not yet expose the
+W005A brush engine as graphical sculpting. Worldwright does not provide 3D
+terrain rendering, texture painting, water, object or NPC placement, DBC
 editing, MPQ creation, EPF publishing, Portalkeeper integration, database
 changes, or client-installation changes. Exported files are loose development
 assets; future publishing is expected to use the mod-content-manager EPF

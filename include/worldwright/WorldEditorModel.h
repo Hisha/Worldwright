@@ -42,6 +42,9 @@ public:
     bool setTilesEnabled(const std::vector<TileCoord>& tiles, bool enabled);
 
     const TerrainDefinition* terrainAt(int x, int y) const noexcept;
+    // Mutable access is provided for toolkit-independent terrain operations;
+    // callers must preserve finite heights and cross-tile seam invariants.
+    TerrainDefinition* mutableTerrainAt(int x, int y) noexcept;
     std::optional<float> elevationAt(int x, int y) const noexcept;
 
     // Maps a point in grid-content coordinates to a tile. The origin is the

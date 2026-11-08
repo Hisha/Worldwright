@@ -12,6 +12,7 @@ namespace worldwright {
 // grid. Serialization expands these into 256 groups of 145 MCVT values.
 class TerrainDefinition {
 public:
+    static constexpr float TileSize = 533.33333f;
     static constexpr int ChunksPerSide = 16;
     static constexpr int ChunkCount = ChunksPerSide * ChunksPerSide;
     static constexpr int CellsPerChunkSide = 8;
@@ -36,6 +37,8 @@ public:
 
     // Rejects NaN and infinity without changing the current terrain.
     bool setFlatHeight(float elevation) noexcept;
+    bool setOuterHeight(int row, int column, float elevation) noexcept;
+    bool setInnerHeight(int row, int column, float elevation) noexcept;
 
     float outerHeight(int row, int column) const noexcept;
     float innerHeight(int row, int column) const noexcept;

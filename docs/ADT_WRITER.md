@@ -171,10 +171,11 @@ chunk's minimum absolute elevation becomes its MCNK base Z and MCVT stores
 `absoluteHeight - baseZ`. Thus a flat tile at 100 has base Z 100 and 145 zero
 MCVT deltas per chunk.
 
-Flat normals are encoded as signed bytes `(0, 0, 127)`, matching the compact
-client sample. W003 does not expose non-flat editing, so general normal
-recalculation and confirmation of the non-flat component-axis permutation are
-intentionally deferred until sculpting is implemented.
+Normals are encoded as signed bytes `(0, 0, 127)`, matching the compact client
+sample. W005A can now serialize non-flat MCVT geometry, but normal recalculation
+and confirmation of the non-flat component-axis permutation remain deferred.
+Edited geometry therefore exports correctly while its lighting normals remain
+flat, a documented compatibility limitation rather than a new ADT format.
 
 ## Coordinates and seams
 

@@ -1,8 +1,9 @@
 # Implementation Roadmap
 
 Status: Phase 0 complete; Phase 1 in progress. W001 (WDT reader), W002 (world
-model plus WDT writer), and W003 (flat ADT terrain writer) are implemented and
-structurally tested. W003 client loading remains explicitly unverified. The
+model plus WDT writer), W003 (flat ADT terrain writer), W004.5 (2D layout
+editor), and W005A (headless height editing) are implemented and structurally
+tested. Client loading remains explicitly unverified. The
 overall architectural direction below is unchanged. Effort figures are rough
 engineering estimates for one or two developers, not commitments.
 
@@ -13,7 +14,8 @@ engineering estimates for one or two developers, not commitments.
 | W001 | Read 3.3.5a terrain WDT (`MVER`, `MPHD`, `MAIN`), inspector CLI, tests | Complete. See `WDT_READER.md`. |
 | W002 | `WorldDefinition` model, deterministic WDT writer, creation CLI, raw-byte and round-trip tests | Complete. See `WDT_WRITER.md`. |
 | W003 | Flat ADT model/writer, one-tile raw-byte validation, seamless 3×3 generation | Complete structurally; client acceptance unverified. See `ADT_WRITER.md`. |
-| W004+ | Remaining ADT features, WDL/DBC writers, heightmap import, project/export pipeline | Not started. |
+| W005A | Headless raise/lower/smooth engine, multi-ADT brushes, exact seam consistency, MCVT export tests | Complete; parser/client acceptance of edited terrain unverified. See `TERRAIN_HEIGHT_EDITOR.md`. |
+| Later milestones | Remaining ADT features, graphical sculpting, WDL/DBC writers, heightmap import, project/export pipeline | Not started. |
 
 W002 intentionally produces standalone `.wdt` files only. Packaging and client
 delivery remain with mod-content-manager (EPF) and Portalkeeper, as described in

@@ -79,6 +79,7 @@ endif()
 
 add_library(WorldwrightEditorCore
     src/worldwright/EditorInteraction.cpp
+    src/worldwright/TerrainHeightEditor.cpp
     src/worldwright/WorldEditorModel.cpp
     src/worldwright/WorldExporter.cpp
 )
@@ -251,4 +252,13 @@ if(BUILD_TESTING)
     )
     worldwright_enable_warnings(worldwright-editor-core-tests)
     add_test(NAME editor_core_unit COMMAND worldwright-editor-core-tests)
+
+    add_executable(worldwright-terrain-editor-tests
+        tests/TerrainHeightEditorTests.cpp
+    )
+    target_link_libraries(worldwright-terrain-editor-tests PRIVATE
+        WorldwrightEditorCore
+    )
+    worldwright_enable_warnings(worldwright-terrain-editor-tests)
+    add_test(NAME terrain_editor_unit COMMAND worldwright-terrain-editor-tests)
 endif()

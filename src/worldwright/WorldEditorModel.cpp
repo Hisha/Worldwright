@@ -166,6 +166,14 @@ const TerrainDefinition* WorldEditorModel::terrainAt(int x, int y) const noexcep
     return found == m_terrain.end() ? nullptr : &found->second;
 }
 
+TerrainDefinition* WorldEditorModel::mutableTerrainAt(int x, int y) noexcept {
+    if (!m_world.hasTile(x, y)) {
+        return nullptr;
+    }
+    const auto found = m_terrain.find(tileIndex(x, y));
+    return found == m_terrain.end() ? nullptr : &found->second;
+}
+
 std::optional<float> WorldEditorModel::elevationAt(int x, int y) const noexcept {
     const auto* terrain = terrainAt(x, y);
     if (terrain == nullptr) {

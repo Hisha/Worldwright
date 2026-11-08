@@ -22,6 +22,28 @@ bool TerrainDefinition::setFlatHeight(float elevation) noexcept {
     return true;
 }
 
+bool TerrainDefinition::setOuterHeight(int row, int column,
+                                       float elevation) noexcept {
+    if (row < 0 || column < 0 || row >= OuterVerticesPerTileSide ||
+        column >= OuterVerticesPerTileSide || !std::isfinite(elevation)) {
+        return false;
+    }
+    m_outer[static_cast<std::size_t>(row) * OuterVerticesPerTileSide +
+            static_cast<std::size_t>(column)] = elevation;
+    return true;
+}
+
+bool TerrainDefinition::setInnerHeight(int row, int column,
+                                       float elevation) noexcept {
+    if (row < 0 || column < 0 || row >= InnerVerticesPerTileSide ||
+        column >= InnerVerticesPerTileSide || !std::isfinite(elevation)) {
+        return false;
+    }
+    m_inner[static_cast<std::size_t>(row) * InnerVerticesPerTileSide +
+            static_cast<std::size_t>(column)] = elevation;
+    return true;
+}
+
 float TerrainDefinition::outerHeight(int row, int column) const noexcept {
     if (row < 0 || column < 0 || row >= OuterVerticesPerTileSide ||
         column >= OuterVerticesPerTileSide) {

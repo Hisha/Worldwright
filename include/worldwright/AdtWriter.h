@@ -28,7 +28,7 @@ struct AdtWriteOptions {
 class AdtWriter {
 public:
     static constexpr std::uint32_t kVersion = 18;
-    static constexpr float kTileSize = 533.33333f;
+    static constexpr float kTileSize = TerrainDefinition::TileSize;
     static constexpr float kChunkSize = kTileSize / 16.0f;
     static constexpr float kWorldCenter = kTileSize * 32.0f;
     static constexpr std::uint32_t kMcnkPayloadSize = 1228;
