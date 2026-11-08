@@ -1,12 +1,10 @@
 # Worldwright
 
 Worldwright is a standalone, open-source editor for creating World of Warcraft
-3.3.5a world definitions and terrain. W004.5 provides a focused 2D
-desktop editor for laying out a 64 x 64 world grid, assigning a flat elevation
-to each enabled tile, and exporting loose WDT and ADT development assets.
-W005A adds a reusable, headless terrain-height engine with raise, lower,
-smoothing, cross-ADT brushes, and exact shared-edge consistency. Its operations
-are available to core code; a graphical sculpting interface is future work.
+3.3.5a world definitions and terrain. W005B provides a 2D desktop editor with
+two workspaces: a 64 x 64 World Layout and an elevation-colored Terrain Detail
+canvas. Terrain Detail exposes the W005A raise, lower, smoothing, and cross-ADT
+brush engine while editing the same geometry later written to ADT files.
 
 The repository also provides the existing command-line tools:
 
@@ -61,7 +59,10 @@ The GUI is never needed to run the core unit tests.
    selection is highlighted in yellow.
 4. Enter the flat height in the **Elevation** field in the Properties panel.
    The value is applied to every enabled tile in the selection.
-5. Choose **File > Export World** and select an existing output directory.
+5. With one enabled tile selected, choose **Edit Terrain** to open Terrain
+   Detail. Choose **Return to World** to return to the layout without losing
+   sculpted heights.
+6. Choose **File > Export World** and select an existing output directory.
 
 ## Map tools and navigation
 
@@ -92,6 +93,54 @@ The Properties panel retains the selected coordinates, selection size,
 enabled state, and elevation. At close zoom levels, coordinates are also
 drawn inside individual cells.
 
+## Terrain Detail sculpting
+
+Select an enabled ADT in World Layout and choose **Edit Terrain** (also
+available under **View > Edit Terrain**). The selected tile is outlined in
+yellow as the active ADT. The **Active ADT** list changes focus to any other
+enabled tile without rebuilding or flattening either tile. **Return to World**
+switches back to the 64 x 64 layout; reentering Terrain Detail shows the same
+edited geometry.
+
+Terrain Detail draws the W005A staggered outer and inner vertex grids as a 2D
+elevation image. Dark blue represents the low end of the visible scale, then
+green and brown, with light gray at the high end. A legend reports the current
+scale. Flat terrain uses a small default elevation range so its color remains
+meaningful and the first edits remain visible. Enabled ADTs are colored,
+unavailable terrain is checkered, and missing tiles are never enabled by a
+brush.
+
+The terrain toolbar provides four mutually exclusive tools:
+
+- **Raise** adds the Strength value as an elevation delta at each spaced brush
+  sample, reduced toward the edge by W005A's linear falloff.
+- **Lower** subtracts the same elevation delta and falloff.
+- **Smooth** blends vertices toward their mesh-neighbor average. Strength is a
+  blend fraction from 0.01 to 1.00.
+- **Pan** makes left-drag move the viewport without changing terrain.
+
+**Radius** is measured in W005A world units; its default is four terrain cells,
+and the control tooltip reports the cell size. Invalid, zero, negative, and
+nonfinite values cannot enter the terrain engine. The white-and-black brush
+outline uses the exact world-to-screen transform used for sculpting, scales
+with zoom, crosses ADT outlines, and appears only when its center is on enabled
+terrain.
+
+Left-click or left-drag applies the selected sculpting tool. Drag paths are
+sampled every quarter brush radius. The sampler carries unused distance between
+mouse events, so fast movement does not leave large gaps and extra move events
+do not multiply full-strength applications at the same location. The mouse
+wheel zooms around the cursor.
+Right- or middle-drag pans in every tool. **Fit Terrain** frames the active ADT
+with one ADT of context in each available direction. The status bar reports
+hovered world coordinates, edit availability, and zoom.
+
+A brush near an enabled edge is passed once to the multi-ADT W005A engine. It
+therefore edits enabled horizontal, vertical, and corner neighbors in one
+operation and keeps their shared outer vertices identical. A missing neighbor
+is safely ignored and never created. Export serializes these current
+`TerrainDefinition` objects directly; it does not regenerate flat terrain.
+
 For a world named `NewWorld` with tiles (30,30) through (32,32), export creates
 `NewWorld.wdt` and nine files named `NewWorld_30_30.adt` through
 `NewWorld_32_32.adt`. Existing files are replaced only after explicit
@@ -117,10 +166,12 @@ and seam policies.
 
 ## Current limitations
 
-The current GUI remains a 2D layout editor. It creates one active world at a
-time and exposes only flat elevation assignment; it does not yet expose the
-W005A brush engine as graphical sculpting. Worldwright does not provide 3D
-terrain rendering, texture painting, water, object or NPC placement, DBC
+Terrain Detail is a 2D elevation visualization, not a 3D renderer. Tile images
+are cached and only brush-overlapped tiles are invalidated, but very large
+brushes spanning many enabled ADTs can still take noticeable time because the
+correctness-first W005A operation and affected images run synchronously on the
+UI thread. There is no undo/redo or project-file persistence. Worldwright does
+not provide terrain texture painting, water, object or NPC placement, DBC
 editing, MPQ creation, EPF publishing, Portalkeeper integration, database
 changes, or client-installation changes. Exported files are loose development
 assets; future publishing is expected to use the mod-content-manager EPF

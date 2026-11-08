@@ -79,6 +79,7 @@ endif()
 
 add_library(WorldwrightEditorCore
     src/worldwright/EditorInteraction.cpp
+    src/worldwright/TerrainDetailInteraction.cpp
     src/worldwright/TerrainHeightEditor.cpp
     src/worldwright/WorldEditorModel.cpp
     src/worldwright/WorldExporter.cpp
@@ -125,20 +126,24 @@ worldwright_enable_warnings(worldwright-adt-create)
 if(WORLDWRIGHT_BUILD_GUI)
     find_package(Qt6 6.2 COMPONENTS Widgets QUIET)
     if(Qt6Widgets_FOUND)
-        add_executable(worldwright
-            src/worldwright/gui/gui_main.cpp
+        add_library(WorldwrightGui STATIC
             src/worldwright/gui/MainWindow.cpp
             src/worldwright/gui/MainWindow.h
+            src/worldwright/gui/TerrainDetailWidget.cpp
+            src/worldwright/gui/TerrainDetailWidget.h
             src/worldwright/gui/WorldMapWidget.cpp
             src/worldwright/gui/WorldMapWidget.h
         )
-        target_link_libraries(worldwright PRIVATE
+        target_link_libraries(WorldwrightGui PUBLIC
             WorldwrightEditorCore
             Qt6::Widgets
         )
-        target_include_directories(worldwright PRIVATE
+        target_include_directories(WorldwrightGui PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/src/worldwright/gui
         )
+        worldwright_enable_warnings(WorldwrightGui)
+        add_executable(worldwright src/worldwright/gui/gui_main.cpp)
+        target_link_libraries(worldwright PRIVATE WorldwrightGui)
         worldwright_enable_warnings(worldwright)
     else()
         message(WARNING
@@ -261,4 +266,27 @@ if(BUILD_TESTING)
     )
     worldwright_enable_warnings(worldwright-terrain-editor-tests)
     add_test(NAME terrain_editor_unit COMMAND worldwright-terrain-editor-tests)
+
+    add_executable(worldwright-terrain-detail-tests
+        tests/TerrainDetailInteractionTests.cpp
+    )
+    target_link_libraries(worldwright-terrain-detail-tests PRIVATE
+        WorldwrightEditorCore
+    )
+    worldwright_enable_warnings(worldwright-terrain-detail-tests)
+    add_test(NAME terrain_detail_unit COMMAND worldwright-terrain-detail-tests)
+
+    if(TARGET WorldwrightGui)
+        add_executable(worldwright-terrain-detail-gui-tests
+            tests/TerrainDetailGuiTests.cpp
+        )
+        target_link_libraries(worldwright-terrain-detail-gui-tests PRIVATE
+            WorldwrightGui
+        )
+        worldwright_enable_warnings(worldwright-terrain-detail-gui-tests)
+        add_test(NAME terrain_detail_gui_offscreen
+                 COMMAND worldwright-terrain-detail-gui-tests)
+        set_tests_properties(terrain_detail_gui_offscreen PROPERTIES
+            ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    endif()
 endif()

@@ -1,11 +1,13 @@
 #include "MainWindow.h"
 
+#include "TerrainDetailWidget.h"
 #include "WorldMapWidget.h"
 #include "worldwright/WorldExporter.h"
 
 #include <QAction>
 #include <QActionGroup>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QFileDialog>
 #include <QFormLayout>
@@ -17,6 +19,7 @@
 #include <QPushButton>
 #include <QShortcut>
 #include <QSplitter>
+#include <QStackedWidget>
 #include <QStatusBar>
 #include <QToolBar>
 #include <QTreeWidget>
@@ -50,15 +53,27 @@ void MainWindow::buildUi() {
     auto* viewMenu = menuBar()->addMenu("&View");
     auto* fitAction = viewMenu->addAction("&Fit World");
     auto* resetAction = viewMenu->addAction("&Reset View");
+    m_editTerrainAction = viewMenu->addAction("Edit &Terrain");
+    m_returnAction = viewMenu->addAction("Return to &World Layout");
+    m_returnAction->setVisible(false);
+    connect(m_editTerrainAction, &QAction::triggered, this, [this] {
+        if (!enterTerrainDetail()) {
+            QMessageBox::information(this, "Edit Terrain",
+                                     "Select one enabled terrain tile first.");
+        }
+    });
+    connect(m_returnAction, &QAction::triggered, this,
+            [this] { returnToWorldLayout(); });
 
-    auto* toolbar = addToolBar("Editing");
-    toolbar->setMovable(false);
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
-    auto* modeGroup = new QActionGroup(toolbar);
+    m_layoutToolbar = addToolBar("World Layout Tools");
+    m_layoutToolbar->setObjectName("worldLayoutToolbar");
+    m_layoutToolbar->setMovable(false);
+    m_layoutToolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    auto* modeGroup = new QActionGroup(m_layoutToolbar);
     modeGroup->setExclusive(true);
-    const auto addMode = [this, toolbar, modeGroup](const QString& label,
-                                                    EditMode mode) {
-        auto* action = toolbar->addAction(label);
+    const auto addMode = [this, modeGroup](const QString& label,
+                                           EditMode mode) {
+        auto* action = m_layoutToolbar->addAction(label);
         action->setCheckable(true);
         modeGroup->addAction(action);
         connect(action, &QAction::triggered, this,
@@ -70,8 +85,33 @@ void MainWindow::buildUi() {
     addMode("Erase Terrain", EditMode::EraseTerrain);
     addMode("Pan", EditMode::Pan);
     selectAction->setChecked(true);
-    toolbar->addSeparator();
-    toolbar->addAction(fitAction);
+    m_layoutToolbar->addSeparator();
+    m_layoutToolbar->addAction(fitAction);
+
+    m_detailToolbar = addToolBar("Terrain Detail Tools");
+    m_detailToolbar->setObjectName("terrainDetailToolbar");
+    m_detailToolbar->setMovable(false);
+    m_detailToolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    auto* terrainGroup = new QActionGroup(m_detailToolbar);
+    terrainGroup->setExclusive(true);
+    const auto addTerrainTool = [this, terrainGroup](const QString& label,
+                                                     TerrainTool tool) {
+        auto* action = m_detailToolbar->addAction(label);
+        action->setCheckable(true);
+        terrainGroup->addAction(action);
+        connect(action, &QAction::triggered, this,
+                [this, tool] { setTerrainTool(tool); });
+        return action;
+    };
+    auto* raiseAction = addTerrainTool("Raise", TerrainTool::Raise);
+    addTerrainTool("Lower", TerrainTool::Lower);
+    addTerrainTool("Smooth", TerrainTool::Smooth);
+    addTerrainTool("Pan", TerrainTool::Pan);
+    raiseAction->setChecked(true);
+    m_detailToolbar->addSeparator();
+    auto* fitTerrainAction = m_detailToolbar->addAction("Fit Terrain");
+    m_detailToolbar->addAction(m_returnAction);
+    m_detailToolbar->setVisible(false);
 
     auto* splitter = new QSplitter(this);
     setCentralWidget(splitter);
@@ -80,7 +120,10 @@ void MainWindow::buildUi() {
     m_worldTree->setHeaderLabel("World");
     m_worldTree->setMinimumWidth(190);
 
-    auto* center = new QWidget(splitter);
+    m_workspaces = new QStackedWidget(splitter);
+    m_workspaces->setObjectName("workspaceStack");
+    m_layoutPage = new QWidget(m_workspaces);
+    auto* center = m_layoutPage;
     auto* centerLayout = new QVBoxLayout(center);
     centerLayout->setContentsMargins(8, 8, 8, 8);
     auto* instructions = new QLabel(
@@ -94,9 +137,12 @@ void MainWindow::buildUi() {
     controlsLayout->setContentsMargins(0, 0, 0, 0);
     auto* enableButton = new QPushButton("Enable selected", controls);
     auto* disableButton = new QPushButton("Disable selected", controls);
+    auto* editTerrainButton = new QPushButton("Edit Terrain", controls);
+    editTerrainButton->setObjectName("editTerrainButton");
     auto* resetViewButton = new QPushButton("Reset view", controls);
     controlsLayout->addWidget(enableButton);
     controlsLayout->addWidget(disableButton);
+    controlsLayout->addWidget(editTerrainButton);
     controlsLayout->addStretch();
     controlsLayout->addWidget(resetViewButton);
     centerLayout->addWidget(controls);
@@ -104,6 +150,12 @@ void MainWindow::buildUi() {
             [this] { setSelectionEnabled(true); });
     connect(disableButton, &QPushButton::clicked, this,
             [this] { setSelectionEnabled(false); });
+    connect(editTerrainButton, &QPushButton::clicked, this, [this] {
+        if (!enterTerrainDetail()) {
+            QMessageBox::information(this, "Edit Terrain",
+                                     "Select one enabled terrain tile first.");
+        }
+    });
 
     m_map = new WorldMapWidget(&m_model, center);
     centerLayout->addWidget(m_map, 1);
@@ -119,6 +171,91 @@ void MainWindow::buildUi() {
         updateStatus();
     };
     m_map->zoomChanged = [this](double percent) {
+        m_zoomPercent = percent;
+        updateStatus();
+    };
+
+    m_workspaces->addWidget(m_layoutPage);
+    m_detailPage = new QWidget(m_workspaces);
+    auto* detailLayout = new QVBoxLayout(m_detailPage);
+    detailLayout->setContentsMargins(8, 8, 8, 8);
+    auto* detailControls = new QWidget(m_detailPage);
+    auto* detailControlsLayout = new QHBoxLayout(detailControls);
+    detailControlsLayout->setContentsMargins(0, 0, 0, 0);
+    auto* returnButton = new QPushButton("Return to World", detailControls);
+    returnButton->setObjectName("returnToWorldButton");
+    m_activeTerrain = new QComboBox(detailControls);
+    m_activeTerrain->setObjectName("activeTerrainCombo");
+    m_activeTerrain->setMinimumContentsLength(12);
+    m_brushRadius = new QDoubleSpinBox(detailControls);
+    m_brushRadius->setObjectName("brushRadiusSpin");
+    m_brushRadius->setRange(TerrainHeightEditor::CellSize * 0.25,
+                            TerrainHeightEditor::TileSize * 4.0);
+    m_brushRadius->setDecimals(2);
+    m_brushRadius->setSingleStep(TerrainHeightEditor::CellSize);
+    m_brushRadius->setSuffix(" world units");
+    m_brushRadius->setValue(TerrainHeightEditor::CellSize * 4.0);
+    m_brushRadius->setToolTip(
+        "World-space brush radius; one terrain cell is " +
+        QString::number(TerrainHeightEditor::CellSize, 'f', 2) + " units.");
+    m_brushStrength = new QDoubleSpinBox(detailControls);
+    m_brushStrength->setObjectName("brushStrengthSpin");
+    m_brushStrength->setRange(0.01, 100.0);
+    m_brushStrength->setDecimals(2);
+    m_brushStrength->setSingleStep(0.25);
+    m_brushStrength->setValue(1.0);
+    m_brushStrength->setToolTip(
+        "Raise/Lower: elevation delta per spaced sample. Smooth: blend "
+        "fraction from 0 to 1.");
+    detailControlsLayout->addWidget(returnButton);
+    detailControlsLayout->addSpacing(12);
+    detailControlsLayout->addWidget(new QLabel("Active ADT", detailControls));
+    detailControlsLayout->addWidget(m_activeTerrain);
+    detailControlsLayout->addSpacing(12);
+    detailControlsLayout->addWidget(new QLabel("Radius", detailControls));
+    detailControlsLayout->addWidget(m_brushRadius);
+    detailControlsLayout->addWidget(new QLabel("Strength", detailControls));
+    detailControlsLayout->addWidget(m_brushStrength);
+    detailControlsLayout->addStretch();
+    detailLayout->addWidget(detailControls);
+    auto* detailHelp = new QLabel(
+        "Left-click or drag sculpts. Mouse wheel zooms at the cursor; "
+        "right-, middle-, or Pan-tool drag moves the view.", m_detailPage);
+    detailHelp->setWordWrap(true);
+    detailLayout->addWidget(detailHelp);
+    m_terrainDetail = new TerrainDetailWidget(&m_model, m_detailPage);
+    detailLayout->addWidget(m_terrainDetail, 1);
+    m_workspaces->addWidget(m_detailPage);
+    connect(returnButton, &QPushButton::clicked, this,
+            [this] { returnToWorldLayout(); });
+    connect(fitTerrainAction, &QAction::triggered, m_terrainDetail,
+            &TerrainDetailWidget::fitTerrain);
+    connect(m_brushRadius, qOverload<double>(&QDoubleSpinBox::valueChanged),
+            m_terrainDetail, &TerrainDetailWidget::setBrushRadius);
+    connect(m_brushStrength, qOverload<double>(&QDoubleSpinBox::valueChanged),
+            m_terrainDetail, &TerrainDetailWidget::setBrushStrength);
+    connect(m_activeTerrain, qOverload<int>(&QComboBox::currentIndexChanged),
+            this, [this](int index) {
+                if (m_refreshing || index < 0) {
+                    return;
+                }
+                setActiveTerrainTile(
+                    {m_activeTerrain->itemData(index, Qt::UserRole).toInt(),
+                     m_activeTerrain->itemData(index, Qt::UserRole + 1).toInt()});
+            });
+    m_terrainDetail->terrainChanged = [this] { refreshTerrainUi(); };
+    m_terrainDetail->hoverChanged =
+        [this](std::optional<TerrainPoint> point, bool editable) {
+            if (point.has_value()) {
+                m_hoverStatus->setText(
+                    "Terrain: " + QString::number(point->x, 'f', 2) + ", " +
+                    QString::number(point->y, 'f', 2) +
+                    (editable ? " (editable)" : " (unavailable)"));
+            } else {
+                m_hoverStatus->setText("Terrain: —");
+            }
+        };
+    m_terrainDetail->zoomChanged = [this](double percent) {
         m_zoomPercent = percent;
         updateStatus();
     };
@@ -159,7 +296,7 @@ void MainWindow::buildUi() {
             [this] { applyElevation(); });
 
     splitter->addWidget(m_worldTree);
-    splitter->addWidget(center);
+    splitter->addWidget(m_workspaces);
     splitter->addWidget(properties);
     splitter->setStretchFactor(0, 0);
     splitter->setStretchFactor(1, 1);
@@ -190,6 +327,7 @@ void MainWindow::newWorld() {
                              QString::fromStdString(error));
         return;
     }
+    returnToWorldLayout();
     m_map->fitWorld();
     refreshAll();
 }
@@ -263,16 +401,27 @@ void MainWindow::updateStatus() {
     if (m_modeStatus == nullptr) {
         return;
     }
-    QString mode = "Select";
-    if (m_editMode == EditMode::PaintTerrain) {
-        mode = "Paint Terrain";
-    } else if (m_editMode == EditMode::EraseTerrain) {
-        mode = "Erase Terrain";
-    } else if (m_editMode == EditMode::Pan) {
-        mode = "Pan";
+    QString mode;
+    if (m_workspaceMode == WorkspaceMode::TerrainDetail) {
+        mode = "Terrain Detail";
+        if (m_terrainDetail != nullptr) {
+            if (m_terrainDetail->tool() == TerrainTool::Raise) mode += " / Raise";
+            if (m_terrainDetail->tool() == TerrainTool::Lower) mode += " / Lower";
+            if (m_terrainDetail->tool() == TerrainTool::Smooth) mode += " / Smooth";
+            if (m_terrainDetail->tool() == TerrainTool::Pan) mode += " / Pan";
+        }
+    } else {
+        mode = "World Layout / Select";
+        if (m_editMode == EditMode::PaintTerrain) mode = "World Layout / Paint Terrain";
+        if (m_editMode == EditMode::EraseTerrain) mode = "World Layout / Erase Terrain";
+        if (m_editMode == EditMode::Pan) mode = "World Layout / Pan";
     }
     m_modeStatus->setText("Mode: " + mode);
-    if (m_hoveredTile.has_value()) {
+    if (m_workspaceMode == WorkspaceMode::TerrainDetail) {
+        if (m_hoverStatus->text().startsWith("Tile:")) {
+            m_hoverStatus->setText("Terrain: —");
+        }
+    } else if (m_hoveredTile.has_value()) {
         const bool enabled =
             m_model.world().hasTile(m_hoveredTile->x, m_hoveredTile->y);
         m_hoverStatus->setText(
@@ -376,6 +525,97 @@ void MainWindow::applyElevation() {
                              "finite elevation.");
     }
     refreshAll();
+}
+
+WorkspaceMode MainWindow::workspaceMode() const noexcept {
+    return m_workspaceMode;
+}
+
+bool MainWindow::enterTerrainDetail() {
+    const auto selected = m_model.primarySelection();
+    if (!selected.has_value() ||
+        !m_model.world().hasTile(selected->x, selected->y)) {
+        return false;
+    }
+    m_workspaceMode = WorkspaceMode::TerrainDetail;
+    refreshActiveTerrainChoices();
+    setActiveTerrainTile(*selected);
+    m_workspaces->setCurrentWidget(m_detailPage);
+    m_layoutToolbar->setVisible(false);
+    m_detailToolbar->setVisible(true);
+    m_editTerrainAction->setVisible(false);
+    m_returnAction->setVisible(true);
+    m_hoverStatus->setText("Terrain: —");
+    updateStatus();
+    return true;
+}
+
+void MainWindow::returnToWorldLayout() {
+    if (m_workspaces == nullptr) {
+        return;
+    }
+    m_workspaceMode = WorkspaceMode::WorldLayout;
+    m_workspaces->setCurrentWidget(m_layoutPage);
+    m_layoutToolbar->setVisible(true);
+    m_detailToolbar->setVisible(false);
+    m_editTerrainAction->setVisible(true);
+    m_returnAction->setVisible(false);
+    m_hoverStatus->setText("Tile: —");
+    updateStatus();
+}
+
+bool MainWindow::setActiveTerrainTile(TileCoord tile) {
+    if (!m_model.world().hasTile(tile.x, tile.y)) {
+        return false;
+    }
+    m_terrainDetail->setActiveTile(tile);
+    for (int index = 0; index < m_activeTerrain->count(); ++index) {
+        if (m_activeTerrain->itemData(index, Qt::UserRole).toInt() == tile.x &&
+            m_activeTerrain->itemData(index, Qt::UserRole + 1).toInt() == tile.y) {
+            const bool oldRefreshing = m_refreshing;
+            m_refreshing = true;
+            m_activeTerrain->setCurrentIndex(index);
+            m_refreshing = oldRefreshing;
+            break;
+        }
+    }
+    updateStatus();
+    return true;
+}
+
+WorldEditorModel& MainWindow::model() noexcept { return m_model; }
+const WorldEditorModel& MainWindow::model() const noexcept { return m_model; }
+
+void MainWindow::refreshActiveTerrainChoices() {
+    const auto current = m_terrainDetail->activeTile();
+    const bool oldRefreshing = m_refreshing;
+    m_refreshing = true;
+    m_activeTerrain->clear();
+    for (const auto tile : m_model.world().enabledTiles()) {
+        m_activeTerrain->addItem(QString::number(tile.x) + ", " +
+                                     QString::number(tile.y),
+                                 tile.x);
+        const int index = m_activeTerrain->count() - 1;
+        m_activeTerrain->setItemData(index, tile.y, Qt::UserRole + 1);
+        if (current.has_value() && *current == tile) {
+            m_activeTerrain->setCurrentIndex(index);
+        }
+    }
+    m_refreshing = oldRefreshing;
+}
+
+void MainWindow::setTerrainTool(TerrainTool tool) {
+    if (tool == TerrainTool::Smooth) {
+        m_brushStrength->setMaximum(1.0);
+        if (m_brushStrength->value() > 1.0) {
+            m_brushStrength->setValue(1.0);
+        }
+    } else {
+        m_brushStrength->setMaximum(100.0);
+    }
+    m_terrainDetail->setTool(tool);
+    m_terrainDetail->setBrushStrength(m_brushStrength->value());
+    updateStatus();
 }
 
 }  // namespace worldwright::gui
