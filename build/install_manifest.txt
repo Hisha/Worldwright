@@ -1,7 +1,0 @@
-/tmp/opencode/w002-install/lib/libWorldwrightWdtReader.a
-/tmp/opencode/w002-install/lib/libWorldwrightWdtWriter.a
-/tmp/opencode/w002-install/bin/worldwright-wdt-info
-/tmp/opencode/w002-install/bin/worldwright-wdt-create
-/tmp/opencode/w002-install/include/worldwright/WorldDefinition.h
-/tmp/opencode/w002-install/include/worldwright/WdtWriter.h
-/tmp/opencode/w002-install/include/worldwright/WdtReader.h

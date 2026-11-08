@@ -1,2 +1,0 @@
-/usr/bin/ar qc libWorldwrightWdtReader.a CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o
-/usr/bin/ranlib libWorldwrightWdtReader.a

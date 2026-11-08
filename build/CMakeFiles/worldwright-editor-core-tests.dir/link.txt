@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/worldwright-editor-core-tests.dir/link.d "CMakeFiles/worldwright-editor-core-tests.dir/tests/WorldEditorTests.cpp.o" -o worldwright-editor-core-tests  libWorldwrightEditorCore.a libWorldwrightWdtReader.a libWorldwrightWdtWriter.a libWorldwrightAdtWriter.a

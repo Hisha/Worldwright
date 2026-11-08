@@ -1,2 +1,0 @@
-/usr/bin/ar qc libWorldwrightWdtWriter.a CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WorldDefinition.cpp.o CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WdtWriter.cpp.o
-/usr/bin/ranlib libWorldwrightWdtWriter.a

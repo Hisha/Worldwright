@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/worldwright-adt-create.dir/link.d "CMakeFiles/worldwright-adt-create.dir/src/worldwright/adt_create_main.cpp.o" -o worldwright-adt-create  libWorldwrightAdtWriter.a libWorldwrightWdtWriter.a
