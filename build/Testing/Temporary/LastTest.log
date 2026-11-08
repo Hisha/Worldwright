@@ -1,3 +1,295 @@
-Start testing: Oct 29 08:33 EDT
+Start testing: Nov 08 07:58 EST
 ----------------------------------------------------------
-End testing: Oct 29 08:33 EDT
+1/7 Testing: wdt_reader_unit
+1/7 Test: wdt_reader_unit
+Command: "/home/smithkt/git/Worldwright/build/worldwright-wdt-tests"
+Directory: /home/smithkt/git/Worldwright/build
+"wdt_reader_unit" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+Worldwright WDT Reader Test Suite
+=================================
+[ RUN      ] empty terrain grid
+Test: valid empty terrain grid
+[       OK ] empty terrain grid
+[ RUN      ] one terrain tile
+Test: one existing terrain tile
+[       OK ] one terrain tile
+[ RUN      ] nine terrain tiles
+Test: nine existing terrain tiles
+[       OK ] nine terrain tiles
+[ RUN      ] coordinate lookup
+Test: tile coordinate lookup uses row-major MAIN order
+[       OK ] coordinate lookup
+[ RUN      ] out-of-range coordinates
+Test: out-of-range tile coordinates
+[       OK ] out-of-range coordinates
+[ RUN      ] missing required chunks
+Test: missing required chunks
+[       OK ] missing required chunks
+[ RUN      ] truncated data
+Test: truncated WDT data
+[       OK ] truncated data
+[ RUN      ] invalid chunk sizes
+Test: invalid chunk sizes
+[       OK ] invalid chunk sizes
+[ RUN      ] unsupported version
+Test: unsupported MVER versions
+[       OK ] unsupported version
+[ RUN      ] malformed MAIN chunk
+Test: malformed MAIN chunk
+[       OK ] malformed MAIN chunk
+[ RUN      ] duplicate required chunks
+Test: duplicate required chunks
+[       OK ] duplicate required chunks
+[ RUN      ] unknown chunks
+Test: optional and unknown chunks are skipped
+[       OK ] unknown chunks
+[ RUN      ] MPHD flags
+Test: MPHD flag recognition
+[       OK ] MPHD flags
+[ RUN      ] MAIN flag semantics
+Test: MAIN existence flag semantics
+[       OK ] MAIN flag semantics
+[ RUN      ] all tiles and bounds
+Test: full 64 x 64 grid and bounds
+[       OK ] all tiles and bounds
+[ RUN      ] repeated loading
+Test: repeated loading and stale-state clearing
+[       OK ] repeated loading
+[ RUN      ] path loading
+Test: path loading, file names with spaces, empty file
+[       OK ] path loading
+[ RUN      ] trailing garbage
+Test: trailing bytes shorter than a chunk header
+[       OK ] trailing garbage
+[ RUN      ] fixture byte layout
+Test: generated fixture uses the documented on-disk layout
+[       OK ] fixture byte layout
+=================================
+Checks: 219, failures: 0
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"wdt_reader_unit" end time: Nov 08 07:58 EST
+"wdt_reader_unit" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/7 Testing: wdt_writer_unit
+2/7 Test: wdt_writer_unit
+Command: "/home/smithkt/git/Worldwright/build/worldwright-wdt-writer-tests"
+Directory: /home/smithkt/git/Worldwright/build
+"wdt_writer_unit" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+Worldwright WDT Writer Test Suite
+=================================
+[ RUN      ] empty world
+Test: empty world definition
+[       OK ] empty world
+[ RUN      ] enable/disable
+Test: enable and disable a tile
+[       OK ] enable/disable
+[ RUN      ] idempotent operations
+Test: repeated enable/disable does not double-count
+[       OK ] idempotent operations
+[ RUN      ] invalid coordinates
+Test: invalid coordinates are rejected
+[       OK ] invalid coordinates
+[ RUN      ] boundary coordinates
+Test: boundary coordinates (0,0) and (63,63)
+[       OK ] boundary coordinates
+[ RUN      ] clear
+Test: clearing a world removes all tiles
+[       OK ] clear
+[ RUN      ] enumeration and bounds
+Test: enumeration order and bounding rectangle
+[       OK ] enumeration and bounds
+[ RUN      ] empty serialization layout
+Test: empty world raw WDT layout
+[       OK ] empty serialization layout
+[ RUN      ] chunk layout
+Test: independent chunk ordering and sizes
+[       OK ] chunk layout
+[ RUN      ] single tile layout
+Test: single-tile raw MAIN entry
+[       OK ] single tile layout
+[ RUN      ] boundary tile layout
+Test: boundary tiles map to first and last MAIN entries
+[       OK ] boundary tile layout
+[ RUN      ] nine tile layout
+Test: nine-tile rectangle raw MAIN layout
+[       OK ] nine tile layout
+[ RUN      ] full grid layout
+Test: full 64 x 64 raw MAIN layout
+[       OK ] full grid layout
+[ RUN      ] deterministic serialization
+Test: serialization is deterministic
+[       OK ] deterministic serialization
+[ RUN      ] round trip empty
+Test: round trip empty world
+[       OK ] round trip empty
+[ RUN      ] round trip single
+Test: round trip single tile
+[       OK ] round trip single
+[ RUN      ] round trip nine
+Test: round trip nine-tile rectangle
+[       OK ] round trip nine
+[ RUN      ] round trip full
+Test: round trip full grid
+[       OK ] round trip full
+[ RUN      ] round trip every coordinate
+Test: round trip preserves every tile coordinate
+[       OK ] round trip every coordinate
+[ RUN      ] repeated saves
+Test: repeated saves produce identical files
+[       OK ] repeated saves
+[ RUN      ] invalid output paths
+Test: invalid output paths are rejected
+[       OK ] invalid output paths
+[ RUN      ] overwrite protection
+Test: existing-file overwrite protection
+[       OK ] overwrite protection
+[ RUN      ] failure leaves no partial output
+Test: failed saves leave no partial output
+[       OK ] failure leaves no partial output
+=================================
+Checks: 359, failures: 0
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"wdt_writer_unit" end time: Nov 08 07:58 EST
+"wdt_writer_unit" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/7 Testing: wdt_fixtures
+3/7 Test: wdt_fixtures
+Command: "/home/smithkt/git/Worldwright/build/worldwright-wdt-test-fixtures" "/home/smithkt/git/Worldwright/build/test-fixtures"
+Directory: /home/smithkt/git/Worldwright/build
+"wdt_fixtures" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"wdt_fixtures" end time: Nov 08 07:58 EST
+"wdt_fixtures" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/7 Testing: wdt_cli
+4/7 Test: wdt_cli
+Command: "/usr/bin/cmake" "-DCLI=/home/smithkt/git/Worldwright/build/worldwright-wdt-info" "-DFIXTURE_DIR=/home/smithkt/git/Worldwright/build/test-fixtures" "-P" "/home/smithkt/git/Worldwright/tests/CliTests.cmake"
+Directory: /home/smithkt/git/Worldwright/build
+"wdt_cli" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+-- CLI checks passed
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"wdt_cli" end time: Nov 08 07:58 EST
+"wdt_cli" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/7 Testing: wdt_create_cli
+5/7 Test: wdt_create_cli
+Command: "/usr/bin/cmake" "-DCREATE_CLI=/home/smithkt/git/Worldwright/build/worldwright-wdt-create" "-DINFO_CLI=/home/smithkt/git/Worldwright/build/worldwright-wdt-info" "-DWORK_DIR=/home/smithkt/git/Worldwright/build/create-cli-work" "-P" "/home/smithkt/git/Worldwright/tests/WdtCreateCliTests.cmake"
+Directory: /home/smithkt/git/Worldwright/build
+"wdt_create_cli" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+-- WDT create CLI checks passed
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"wdt_create_cli" end time: Nov 08 07:58 EST
+"wdt_create_cli" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/7 Testing: adt_writer_unit
+6/7 Test: adt_writer_unit
+Command: "/home/smithkt/git/Worldwright/build/worldwright-adt-writer-tests"
+Directory: /home/smithkt/git/Worldwright/build
+"adt_writer_unit" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+ADT writer checks: 152931, failures: 0
+<end of output>
+Test time =   0.10 sec
+----------------------------------------------------------
+Test Passed.
+"adt_writer_unit" end time: Nov 08 07:58 EST
+"adt_writer_unit" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/7 Testing: adt_create_cli
+7/7 Test: adt_create_cli
+Command: "/usr/bin/cmake" "-DCREATE_CLI=/home/smithkt/git/Worldwright/build/worldwright-adt-create" "-DWORK_DIR=/home/smithkt/git/Worldwright/build/adt-create-cli-work" "-P" "/home/smithkt/git/Worldwright/tests/AdtCreateCliTests.cmake"
+Directory: /home/smithkt/git/Worldwright/build
+"adt_create_cli" start time: Nov 08 07:58 EST
+Output:
+----------------------------------------------------------
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/empty/Empty.wdt
+Enabled tiles: 0
+ADT files: 0
+Elevation: 0
+MCNK chunks: 0
+ADT bytes: 0
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld.wdt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_30_30.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_31_30.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_32_30.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_30_31.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_31_31.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_32_31.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_30_32.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_31_32.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/nine/NewWorld_32_32.adt
+Enabled tiles: 9
+ADT files: 9
+Elevation: 100
+MCNK chunks: 2304
+ADT bytes: 2886372
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/sparse/Sparse.wdt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/sparse/Sparse_0_0.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/sparse/Sparse_12_34.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/sparse/Sparse_63_63.adt
+Enabled tiles: 3
+ADT files: 3
+Elevation: 1.5
+MCNK chunks: 768
+ADT bytes: 962124
+Error: invalid finite elevation: 'nan'
+
+Worldwright ADT Creator
+
+Single tile:
+  /home/smithkt/git/Worldwright/build/worldwright-adt-create --output <file.adt> --tile <x> <y> --height <elevation> [--overwrite]
+
+World terrain set:
+  /home/smithkt/git/Worldwright/build/worldwright-adt-create --world <name> --output-dir <dir> [--tile x y ... | --rectangle minX minY maxX maxY ...] --height <elevation> [--overwrite]
+
+World mode writes <name>.wdt plus one <name>_<x>_<y>.adt for each
+enabled WorldDefinition tile. Coordinates are in [0,63]. Height is
+an absolute WoW world elevation; NaN and infinity are rejected.
+Error: output file already exists (use --overwrite to replace it): /home/smithkt/git/Worldwright/build/adt-create-cli-work/single/One_0_0.adt
+Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/single/One_0_0.adt
+Tile: (0,0)
+Elevation: 0
+MCNK chunks: 256
+Terrain vertices serialized: 37120
+Bytes written: 320708
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"adt_create_cli" end time: Nov 08 07:58 EST
+"adt_create_cli" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 08 07:58 EST

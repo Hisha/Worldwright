@@ -72,63 +72,31 @@ include CMakeFiles/WorldwrightWdtReader.dir/flags.make
 CMakeFiles/WorldwrightWdtReader.dir/codegen:
 .PHONY : CMakeFiles/WorldwrightWdtReader.dir/codegen
 
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/flags.make
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o: /home/smithkt/git/Worldwright/src/worldwright/WdtParser.cpp
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o -MF CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o.d -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o -c /home/smithkt/git/Worldwright/src/worldwright/WdtParser.cpp
+CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/flags.make
+CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o: /home/smithkt/git/Worldwright/src/worldwright/WdtReader.cpp
+CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o -MF CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o.d -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o -c /home/smithkt/git/Worldwright/src/worldwright/WdtReader.cpp
 
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/smithkt/git/Worldwright/src/worldwright/WdtParser.cpp > CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.i
+CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/smithkt/git/Worldwright/src/worldwright/WdtReader.cpp > CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.i
 
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/smithkt/git/Worldwright/src/worldwright/WdtParser.cpp -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.s
-
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/flags.make
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o: /home/smithkt/git/Worldwright/src/worldwright/WdtTileMap.cpp
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o -MF CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o.d -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o -c /home/smithkt/git/Worldwright/src/worldwright/WdtTileMap.cpp
-
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/smithkt/git/Worldwright/src/worldwright/WdtTileMap.cpp > CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.i
-
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/smithkt/git/Worldwright/src/worldwright/WdtTileMap.cpp -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.s
-
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/flags.make
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o: /home/smithkt/git/Worldwright/src/worldwright/Worldwright.cpp
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o: CMakeFiles/WorldwrightWdtReader.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o -MF CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o.d -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o -c /home/smithkt/git/Worldwright/src/worldwright/Worldwright.cpp
-
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/smithkt/git/Worldwright/src/worldwright/Worldwright.cpp > CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.i
-
-CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/smithkt/git/Worldwright/src/worldwright/Worldwright.cpp -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.s
+CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/smithkt/git/Worldwright/src/worldwright/WdtReader.cpp -o CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.s
 
 # Object files for target WorldwrightWdtReader
 WorldwrightWdtReader_OBJECTS = \
-"CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o" \
-"CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o" \
-"CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o"
+"CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o"
 
 # External object files for target WorldwrightWdtReader
 WorldwrightWdtReader_EXTERNAL_OBJECTS =
 
-libWorldwrightWdtReader.a: CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o
-libWorldwrightWdtReader.a: CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o
-libWorldwrightWdtReader.a: CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o
+libWorldwrightWdtReader.a: CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o
 libWorldwrightWdtReader.a: CMakeFiles/WorldwrightWdtReader.dir/build.make
 libWorldwrightWdtReader.a: CMakeFiles/WorldwrightWdtReader.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libWorldwrightWdtReader.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libWorldwrightWdtReader.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/WorldwrightWdtReader.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/WorldwrightWdtReader.dir/link.txt --verbose=$(VERBOSE)
 

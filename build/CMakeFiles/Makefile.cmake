@@ -24,6 +24,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-4.2/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-4.2/Modules/Compiler/GNU.cmake"
   "/usr/share/cmake-4.2/Modules/DartConfiguration.tcl.in"
+  "/usr/share/cmake-4.2/Modules/GNUInstallDirs.cmake"
   "/usr/share/cmake-4.2/Modules/Internal/CMakeCXXLinkerInformation.cmake"
   "/usr/share/cmake-4.2/Modules/Internal/CMakeCommonLinkerInformation.cmake"
   "/usr/share/cmake-4.2/Modules/Linker/GNU-CXX.cmake"
@@ -54,9 +55,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/WorldwrightWdtReader.dir/DependInfo.cmake"
-  "CMakeFiles/worldwright-wdt-info.dir/DependInfo.cmake"
-  "CMakeFiles/WDT_tests.dir/DependInfo.cmake"
   "CMakeFiles/Experimental.dir/DependInfo.cmake"
   "CMakeFiles/Nightly.dir/DependInfo.cmake"
   "CMakeFiles/Continuous.dir/DependInfo.cmake"
@@ -85,4 +83,14 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ContinuousCoverage.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousMemCheck.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousSubmit.dir/DependInfo.cmake"
+  "CMakeFiles/WorldwrightWdtReader.dir/DependInfo.cmake"
+  "CMakeFiles/WorldwrightWdtWriter.dir/DependInfo.cmake"
+  "CMakeFiles/WorldwrightAdtWriter.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-wdt-info.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-wdt-create.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-adt-create.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-wdt-tests.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-wdt-test-fixtures.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-wdt-writer-tests.dir/DependInfo.cmake"
+  "CMakeFiles/worldwright-adt-writer-tests.dir/DependInfo.cmake"
   )

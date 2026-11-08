@@ -1,3 +1,10 @@
+> **Status: superseded.** This plan was written by the local worker before
+> implementation and records the intended task decomposition only. Its format
+> section contains incorrect assumptions (MVER as a magic number, a packed
+> header, and four-byte MAIN entries). Do not use it as a format reference.
+> See `WDT_READER.md` for the implemented format and
+> `LOCAL_WORKER_EVALUATION.md` for the audit.
+
 # WDT Reader Implementation Plan
 
 ## Task: Implement C++17 WDT Tile Reader Library and CLI for Worldwright

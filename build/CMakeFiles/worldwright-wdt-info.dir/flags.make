@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/smithkt/git/Worldwright/src/worldwright
+CXX_INCLUDES = -I/home/smithkt/git/Worldwright/include
 
-CXX_FLAGS = -g -std=gnu++17 -Wall -Wextra -Wpedantic
+CXX_FLAGS = -g -std=c++17 -Wall -Wextra -Wpedantic
 

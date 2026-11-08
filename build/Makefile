@@ -172,45 +172,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named WorldwrightWdtReader
-
-# Build rule for target.
-WorldwrightWdtReader: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WorldwrightWdtReader
-.PHONY : WorldwrightWdtReader
-
-# fast build rule for target.
-WorldwrightWdtReader/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/build
-.PHONY : WorldwrightWdtReader/fast
-
-#=============================================================================
-# Target rules for targets named worldwright-wdt-info
-
-# Build rule for target.
-worldwright-wdt-info: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-wdt-info
-.PHONY : worldwright-wdt-info
-
-# fast build rule for target.
-worldwright-wdt-info/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-info.dir/build.make CMakeFiles/worldwright-wdt-info.dir/build
-.PHONY : worldwright-wdt-info/fast
-
-#=============================================================================
-# Target rules for targets named WDT_tests
-
-# Build rule for target.
-WDT_tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WDT_tests
-.PHONY : WDT_tests
-
-# fast build rule for target.
-WDT_tests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WDT_tests.dir/build.make CMakeFiles/WDT_tests.dir/build
-.PHONY : WDT_tests/fast
-
-#=============================================================================
 # Target rules for targets named Experimental
 
 # Build rule for target.
@@ -574,77 +535,303 @@ ContinuousSubmit/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ContinuousSubmit.dir/build.make CMakeFiles/ContinuousSubmit.dir/build
 .PHONY : ContinuousSubmit/fast
 
-src/worldwright/WdtParser.o: src/worldwright/WdtParser.cpp.o
-.PHONY : src/worldwright/WdtParser.o
+#=============================================================================
+# Target rules for targets named WorldwrightWdtReader
+
+# Build rule for target.
+WorldwrightWdtReader: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WorldwrightWdtReader
+.PHONY : WorldwrightWdtReader
+
+# fast build rule for target.
+WorldwrightWdtReader/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/build
+.PHONY : WorldwrightWdtReader/fast
+
+#=============================================================================
+# Target rules for targets named WorldwrightWdtWriter
+
+# Build rule for target.
+WorldwrightWdtWriter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WorldwrightWdtWriter
+.PHONY : WorldwrightWdtWriter
+
+# fast build rule for target.
+WorldwrightWdtWriter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/build
+.PHONY : WorldwrightWdtWriter/fast
+
+#=============================================================================
+# Target rules for targets named WorldwrightAdtWriter
+
+# Build rule for target.
+WorldwrightAdtWriter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WorldwrightAdtWriter
+.PHONY : WorldwrightAdtWriter
+
+# fast build rule for target.
+WorldwrightAdtWriter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/build
+.PHONY : WorldwrightAdtWriter/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-wdt-info
+
+# Build rule for target.
+worldwright-wdt-info: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-wdt-info
+.PHONY : worldwright-wdt-info
+
+# fast build rule for target.
+worldwright-wdt-info/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-info.dir/build.make CMakeFiles/worldwright-wdt-info.dir/build
+.PHONY : worldwright-wdt-info/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-wdt-create
+
+# Build rule for target.
+worldwright-wdt-create: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-wdt-create
+.PHONY : worldwright-wdt-create
+
+# fast build rule for target.
+worldwright-wdt-create/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/build
+.PHONY : worldwright-wdt-create/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-adt-create
+
+# Build rule for target.
+worldwright-adt-create: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-adt-create
+.PHONY : worldwright-adt-create
+
+# fast build rule for target.
+worldwright-adt-create/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/build
+.PHONY : worldwright-adt-create/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-wdt-tests
+
+# Build rule for target.
+worldwright-wdt-tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-wdt-tests
+.PHONY : worldwright-wdt-tests
+
+# fast build rule for target.
+worldwright-wdt-tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/build
+.PHONY : worldwright-wdt-tests/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-wdt-test-fixtures
+
+# Build rule for target.
+worldwright-wdt-test-fixtures: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-wdt-test-fixtures
+.PHONY : worldwright-wdt-test-fixtures
+
+# fast build rule for target.
+worldwright-wdt-test-fixtures/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/build
+.PHONY : worldwright-wdt-test-fixtures/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-wdt-writer-tests
+
+# Build rule for target.
+worldwright-wdt-writer-tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-wdt-writer-tests
+.PHONY : worldwright-wdt-writer-tests
+
+# fast build rule for target.
+worldwright-wdt-writer-tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/build
+.PHONY : worldwright-wdt-writer-tests/fast
+
+#=============================================================================
+# Target rules for targets named worldwright-adt-writer-tests
+
+# Build rule for target.
+worldwright-adt-writer-tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-adt-writer-tests
+.PHONY : worldwright-adt-writer-tests
+
+# fast build rule for target.
+worldwright-adt-writer-tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/build
+.PHONY : worldwright-adt-writer-tests/fast
+
+src/worldwright/AdtWriter.o: src/worldwright/AdtWriter.cpp.o
+.PHONY : src/worldwright/AdtWriter.o
 
 # target to build an object file
-src/worldwright/WdtParser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o
-.PHONY : src/worldwright/WdtParser.cpp.o
+src/worldwright/AdtWriter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/AdtWriter.cpp.o
+.PHONY : src/worldwright/AdtWriter.cpp.o
 
-src/worldwright/WdtParser.i: src/worldwright/WdtParser.cpp.i
-.PHONY : src/worldwright/WdtParser.i
+src/worldwright/AdtWriter.i: src/worldwright/AdtWriter.cpp.i
+.PHONY : src/worldwright/AdtWriter.i
 
 # target to preprocess a source file
-src/worldwright/WdtParser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.i
-.PHONY : src/worldwright/WdtParser.cpp.i
+src/worldwright/AdtWriter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/AdtWriter.cpp.i
+.PHONY : src/worldwright/AdtWriter.cpp.i
 
-src/worldwright/WdtParser.s: src/worldwright/WdtParser.cpp.s
-.PHONY : src/worldwright/WdtParser.s
+src/worldwright/AdtWriter.s: src/worldwright/AdtWriter.cpp.s
+.PHONY : src/worldwright/AdtWriter.s
 
 # target to generate assembly for a file
-src/worldwright/WdtParser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.s
-.PHONY : src/worldwright/WdtParser.cpp.s
+src/worldwright/AdtWriter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/AdtWriter.cpp.s
+.PHONY : src/worldwright/AdtWriter.cpp.s
 
-src/worldwright/WdtTileMap.o: src/worldwright/WdtTileMap.cpp.o
-.PHONY : src/worldwright/WdtTileMap.o
+src/worldwright/TerrainDefinition.o: src/worldwright/TerrainDefinition.cpp.o
+.PHONY : src/worldwright/TerrainDefinition.o
 
 # target to build an object file
-src/worldwright/WdtTileMap.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o
-.PHONY : src/worldwright/WdtTileMap.cpp.o
+src/worldwright/TerrainDefinition.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/TerrainDefinition.cpp.o
+.PHONY : src/worldwright/TerrainDefinition.cpp.o
 
-src/worldwright/WdtTileMap.i: src/worldwright/WdtTileMap.cpp.i
-.PHONY : src/worldwright/WdtTileMap.i
+src/worldwright/TerrainDefinition.i: src/worldwright/TerrainDefinition.cpp.i
+.PHONY : src/worldwright/TerrainDefinition.i
 
 # target to preprocess a source file
-src/worldwright/WdtTileMap.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.i
-.PHONY : src/worldwright/WdtTileMap.cpp.i
+src/worldwright/TerrainDefinition.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/TerrainDefinition.cpp.i
+.PHONY : src/worldwright/TerrainDefinition.cpp.i
 
-src/worldwright/WdtTileMap.s: src/worldwright/WdtTileMap.cpp.s
-.PHONY : src/worldwright/WdtTileMap.s
+src/worldwright/TerrainDefinition.s: src/worldwright/TerrainDefinition.cpp.s
+.PHONY : src/worldwright/TerrainDefinition.s
 
 # target to generate assembly for a file
-src/worldwright/WdtTileMap.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.s
-.PHONY : src/worldwright/WdtTileMap.cpp.s
+src/worldwright/TerrainDefinition.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/TerrainDefinition.cpp.s
+.PHONY : src/worldwright/TerrainDefinition.cpp.s
 
-src/worldwright/Worldwright.o: src/worldwright/Worldwright.cpp.o
-.PHONY : src/worldwright/Worldwright.o
+src/worldwright/WdtReader.o: src/worldwright/WdtReader.cpp.o
+.PHONY : src/worldwright/WdtReader.o
 
 # target to build an object file
-src/worldwright/Worldwright.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o
-.PHONY : src/worldwright/Worldwright.cpp.o
+src/worldwright/WdtReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o
+.PHONY : src/worldwright/WdtReader.cpp.o
 
-src/worldwright/Worldwright.i: src/worldwright/Worldwright.cpp.i
-.PHONY : src/worldwright/Worldwright.i
+src/worldwright/WdtReader.i: src/worldwright/WdtReader.cpp.i
+.PHONY : src/worldwright/WdtReader.i
 
 # target to preprocess a source file
-src/worldwright/Worldwright.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.i
-.PHONY : src/worldwright/Worldwright.cpp.i
+src/worldwright/WdtReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.i
+.PHONY : src/worldwright/WdtReader.cpp.i
 
-src/worldwright/Worldwright.s: src/worldwright/Worldwright.cpp.s
-.PHONY : src/worldwright/Worldwright.s
+src/worldwright/WdtReader.s: src/worldwright/WdtReader.cpp.s
+.PHONY : src/worldwright/WdtReader.s
 
 # target to generate assembly for a file
-src/worldwright/Worldwright.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.s
-.PHONY : src/worldwright/Worldwright.cpp.s
+src/worldwright/WdtReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.s
+.PHONY : src/worldwright/WdtReader.cpp.s
+
+src/worldwright/WdtWriter.o: src/worldwright/WdtWriter.cpp.o
+.PHONY : src/worldwright/WdtWriter.o
+
+# target to build an object file
+src/worldwright/WdtWriter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WdtWriter.cpp.o
+.PHONY : src/worldwright/WdtWriter.cpp.o
+
+src/worldwright/WdtWriter.i: src/worldwright/WdtWriter.cpp.i
+.PHONY : src/worldwright/WdtWriter.i
+
+# target to preprocess a source file
+src/worldwright/WdtWriter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WdtWriter.cpp.i
+.PHONY : src/worldwright/WdtWriter.cpp.i
+
+src/worldwright/WdtWriter.s: src/worldwright/WdtWriter.cpp.s
+.PHONY : src/worldwright/WdtWriter.s
+
+# target to generate assembly for a file
+src/worldwright/WdtWriter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WdtWriter.cpp.s
+.PHONY : src/worldwright/WdtWriter.cpp.s
+
+src/worldwright/WorldDefinition.o: src/worldwright/WorldDefinition.cpp.o
+.PHONY : src/worldwright/WorldDefinition.o
+
+# target to build an object file
+src/worldwright/WorldDefinition.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WorldDefinition.cpp.o
+.PHONY : src/worldwright/WorldDefinition.cpp.o
+
+src/worldwright/WorldDefinition.i: src/worldwright/WorldDefinition.cpp.i
+.PHONY : src/worldwright/WorldDefinition.i
+
+# target to preprocess a source file
+src/worldwright/WorldDefinition.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WorldDefinition.cpp.i
+.PHONY : src/worldwright/WorldDefinition.cpp.i
+
+src/worldwright/WorldDefinition.s: src/worldwright/WorldDefinition.cpp.s
+.PHONY : src/worldwright/WorldDefinition.s
+
+# target to generate assembly for a file
+src/worldwright/WorldDefinition.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WorldDefinition.cpp.s
+.PHONY : src/worldwright/WorldDefinition.cpp.s
+
+src/worldwright/adt_create_main.o: src/worldwright/adt_create_main.cpp.o
+.PHONY : src/worldwright/adt_create_main.o
+
+# target to build an object file
+src/worldwright/adt_create_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/src/worldwright/adt_create_main.cpp.o
+.PHONY : src/worldwright/adt_create_main.cpp.o
+
+src/worldwright/adt_create_main.i: src/worldwright/adt_create_main.cpp.i
+.PHONY : src/worldwright/adt_create_main.i
+
+# target to preprocess a source file
+src/worldwright/adt_create_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/src/worldwright/adt_create_main.cpp.i
+.PHONY : src/worldwright/adt_create_main.cpp.i
+
+src/worldwright/adt_create_main.s: src/worldwright/adt_create_main.cpp.s
+.PHONY : src/worldwright/adt_create_main.s
+
+# target to generate assembly for a file
+src/worldwright/adt_create_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/src/worldwright/adt_create_main.cpp.s
+.PHONY : src/worldwright/adt_create_main.cpp.s
+
+src/worldwright/create_main.o: src/worldwright/create_main.cpp.o
+.PHONY : src/worldwright/create_main.o
+
+# target to build an object file
+src/worldwright/create_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/src/worldwright/create_main.cpp.o
+.PHONY : src/worldwright/create_main.cpp.o
+
+src/worldwright/create_main.i: src/worldwright/create_main.cpp.i
+.PHONY : src/worldwright/create_main.i
+
+# target to preprocess a source file
+src/worldwright/create_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/src/worldwright/create_main.cpp.i
+.PHONY : src/worldwright/create_main.cpp.i
+
+src/worldwright/create_main.s: src/worldwright/create_main.cpp.s
+.PHONY : src/worldwright/create_main.s
+
+# target to generate assembly for a file
+src/worldwright/create_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/src/worldwright/create_main.cpp.s
+.PHONY : src/worldwright/create_main.cpp.s
 
 src/worldwright/main.o: src/worldwright/main.cpp.o
 .PHONY : src/worldwright/main.o
@@ -670,29 +857,101 @@ src/worldwright/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-info.dir/build.make CMakeFiles/worldwright-wdt-info.dir/src/worldwright/main.cpp.s
 .PHONY : src/worldwright/main.cpp.s
 
-tests/WDT_tests.o: tests/WDT_tests.cpp.o
-.PHONY : tests/WDT_tests.o
+tests/AdtWriterTests.o: tests/AdtWriterTests.cpp.o
+.PHONY : tests/AdtWriterTests.o
 
 # target to build an object file
-tests/WDT_tests.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WDT_tests.dir/build.make CMakeFiles/WDT_tests.dir/tests/WDT_tests.cpp.o
-.PHONY : tests/WDT_tests.cpp.o
+tests/AdtWriterTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/tests/AdtWriterTests.cpp.o
+.PHONY : tests/AdtWriterTests.cpp.o
 
-tests/WDT_tests.i: tests/WDT_tests.cpp.i
-.PHONY : tests/WDT_tests.i
+tests/AdtWriterTests.i: tests/AdtWriterTests.cpp.i
+.PHONY : tests/AdtWriterTests.i
 
 # target to preprocess a source file
-tests/WDT_tests.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WDT_tests.dir/build.make CMakeFiles/WDT_tests.dir/tests/WDT_tests.cpp.i
-.PHONY : tests/WDT_tests.cpp.i
+tests/AdtWriterTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/tests/AdtWriterTests.cpp.i
+.PHONY : tests/AdtWriterTests.cpp.i
 
-tests/WDT_tests.s: tests/WDT_tests.cpp.s
-.PHONY : tests/WDT_tests.s
+tests/AdtWriterTests.s: tests/AdtWriterTests.cpp.s
+.PHONY : tests/AdtWriterTests.s
 
 # target to generate assembly for a file
-tests/WDT_tests.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/WDT_tests.dir/build.make CMakeFiles/WDT_tests.dir/tests/WDT_tests.cpp.s
-.PHONY : tests/WDT_tests.cpp.s
+tests/AdtWriterTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/tests/AdtWriterTests.cpp.s
+.PHONY : tests/AdtWriterTests.cpp.s
+
+tests/WdtFixtureGenerator.o: tests/WdtFixtureGenerator.cpp.o
+.PHONY : tests/WdtFixtureGenerator.o
+
+# target to build an object file
+tests/WdtFixtureGenerator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/tests/WdtFixtureGenerator.cpp.o
+.PHONY : tests/WdtFixtureGenerator.cpp.o
+
+tests/WdtFixtureGenerator.i: tests/WdtFixtureGenerator.cpp.i
+.PHONY : tests/WdtFixtureGenerator.i
+
+# target to preprocess a source file
+tests/WdtFixtureGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/tests/WdtFixtureGenerator.cpp.i
+.PHONY : tests/WdtFixtureGenerator.cpp.i
+
+tests/WdtFixtureGenerator.s: tests/WdtFixtureGenerator.cpp.s
+.PHONY : tests/WdtFixtureGenerator.s
+
+# target to generate assembly for a file
+tests/WdtFixtureGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/tests/WdtFixtureGenerator.cpp.s
+.PHONY : tests/WdtFixtureGenerator.cpp.s
+
+tests/WdtReaderTests.o: tests/WdtReaderTests.cpp.o
+.PHONY : tests/WdtReaderTests.o
+
+# target to build an object file
+tests/WdtReaderTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/tests/WdtReaderTests.cpp.o
+.PHONY : tests/WdtReaderTests.cpp.o
+
+tests/WdtReaderTests.i: tests/WdtReaderTests.cpp.i
+.PHONY : tests/WdtReaderTests.i
+
+# target to preprocess a source file
+tests/WdtReaderTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/tests/WdtReaderTests.cpp.i
+.PHONY : tests/WdtReaderTests.cpp.i
+
+tests/WdtReaderTests.s: tests/WdtReaderTests.cpp.s
+.PHONY : tests/WdtReaderTests.s
+
+# target to generate assembly for a file
+tests/WdtReaderTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/tests/WdtReaderTests.cpp.s
+.PHONY : tests/WdtReaderTests.cpp.s
+
+tests/WdtWriterTests.o: tests/WdtWriterTests.cpp.o
+.PHONY : tests/WdtWriterTests.o
+
+# target to build an object file
+tests/WdtWriterTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/tests/WdtWriterTests.cpp.o
+.PHONY : tests/WdtWriterTests.cpp.o
+
+tests/WdtWriterTests.i: tests/WdtWriterTests.cpp.i
+.PHONY : tests/WdtWriterTests.i
+
+# target to preprocess a source file
+tests/WdtWriterTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/tests/WdtWriterTests.cpp.i
+.PHONY : tests/WdtWriterTests.cpp.i
+
+tests/WdtWriterTests.s: tests/WdtWriterTests.cpp.s
+.PHONY : tests/WdtWriterTests.s
+
+# target to generate assembly for a file
+tests/WdtWriterTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/tests/WdtWriterTests.cpp.s
+.PHONY : tests/WdtWriterTests.cpp.s
 
 # Help Target
 help:
@@ -735,24 +994,52 @@ help:
 	@echo "... NightlySubmit"
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
-	@echo "... WDT_tests"
+	@echo "... WorldwrightAdtWriter"
 	@echo "... WorldwrightWdtReader"
+	@echo "... WorldwrightWdtWriter"
+	@echo "... worldwright-adt-create"
+	@echo "... worldwright-adt-writer-tests"
+	@echo "... worldwright-wdt-create"
 	@echo "... worldwright-wdt-info"
-	@echo "... src/worldwright/WdtParser.o"
-	@echo "... src/worldwright/WdtParser.i"
-	@echo "... src/worldwright/WdtParser.s"
-	@echo "... src/worldwright/WdtTileMap.o"
-	@echo "... src/worldwright/WdtTileMap.i"
-	@echo "... src/worldwright/WdtTileMap.s"
-	@echo "... src/worldwright/Worldwright.o"
-	@echo "... src/worldwright/Worldwright.i"
-	@echo "... src/worldwright/Worldwright.s"
+	@echo "... worldwright-wdt-test-fixtures"
+	@echo "... worldwright-wdt-tests"
+	@echo "... worldwright-wdt-writer-tests"
+	@echo "... src/worldwright/AdtWriter.o"
+	@echo "... src/worldwright/AdtWriter.i"
+	@echo "... src/worldwright/AdtWriter.s"
+	@echo "... src/worldwright/TerrainDefinition.o"
+	@echo "... src/worldwright/TerrainDefinition.i"
+	@echo "... src/worldwright/TerrainDefinition.s"
+	@echo "... src/worldwright/WdtReader.o"
+	@echo "... src/worldwright/WdtReader.i"
+	@echo "... src/worldwright/WdtReader.s"
+	@echo "... src/worldwright/WdtWriter.o"
+	@echo "... src/worldwright/WdtWriter.i"
+	@echo "... src/worldwright/WdtWriter.s"
+	@echo "... src/worldwright/WorldDefinition.o"
+	@echo "... src/worldwright/WorldDefinition.i"
+	@echo "... src/worldwright/WorldDefinition.s"
+	@echo "... src/worldwright/adt_create_main.o"
+	@echo "... src/worldwright/adt_create_main.i"
+	@echo "... src/worldwright/adt_create_main.s"
+	@echo "... src/worldwright/create_main.o"
+	@echo "... src/worldwright/create_main.i"
+	@echo "... src/worldwright/create_main.s"
 	@echo "... src/worldwright/main.o"
 	@echo "... src/worldwright/main.i"
 	@echo "... src/worldwright/main.s"
-	@echo "... tests/WDT_tests.o"
-	@echo "... tests/WDT_tests.i"
-	@echo "... tests/WDT_tests.s"
+	@echo "... tests/AdtWriterTests.o"
+	@echo "... tests/AdtWriterTests.i"
+	@echo "... tests/AdtWriterTests.s"
+	@echo "... tests/WdtFixtureGenerator.o"
+	@echo "... tests/WdtFixtureGenerator.i"
+	@echo "... tests/WdtFixtureGenerator.s"
+	@echo "... tests/WdtReaderTests.o"
+	@echo "... tests/WdtReaderTests.i"
+	@echo "... tests/WdtReaderTests.s"
+	@echo "... tests/WdtWriterTests.o"
+	@echo "... tests/WdtWriterTests.i"
+	@echo "... tests/WdtWriterTests.s"
 .PHONY : help
 
 

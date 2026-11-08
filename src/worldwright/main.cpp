@@ -1,72 +1,80 @@
-#include "Worldwright.h"
-#include <iostream>
-#include <iomanip>
-#include <cstdlib>
-#include <cstring>
+#include "worldwright/WdtReader.h"
 
-void printUsage(const char* program) {
-    std::cerr << "Usage: " << program << " <path-to-file.wdt> [--list]" << std::endl;
-    std::cerr << std::endl;
-    std::cerr << "Options:" << std::endl;
-    std::cerr << "  --list  List all existing tiles with coordinates" << std::endl;
-    std::cerr << std::endl;
-    std::cerr << "Coordinate system: BLOCK_X, BLOCK_Y (0-63)" << std::endl;
-    std::cerr << "  - BLOCK_X: Column number (0 = leftmost)" << std::endl;
-    std::cerr << "  - BLOCK_Y: Row number (0 = topmost)" << std::endl;
+#include <cstring>
+#include <filesystem>
+#include <iostream>
+#include <string>
+
+namespace {
+
+void printUsage(std::ostream& out, const char* program) {
+    out << "Worldwright WDT Inspector\n\n";
+    out << "Usage: " << program << " <file.wdt> [--list]\n\n";
+    out << "Options:\n";
+    out << "  --list    List every existing terrain tile coordinate\n";
+    out << "  --help    Show this help text\n\n";
+    out << "Coordinates are WDT grid coordinates: x is the column and y is the\n";
+    out << "row, each in the range 0-63. They match the <x>_<y> suffix of the\n";
+    out << "corresponding ADT file name.\n";
 }
 
+}  // namespace
+
 int main(int argc, char* argv[]) {
+    if (argc >= 2 && (std::strcmp(argv[1], "--help") == 0 ||
+                      std::strcmp(argv[1], "-h") == 0)) {
+        printUsage(std::cout, argv[0]);
+        return 0;
+    }
+
     if (argc < 2) {
-        printUsage(argv[0]);
+        printUsage(std::cerr, argv[0]);
         return 1;
     }
-    
-    const char* path = argv[1];
+
+    const std::filesystem::path path(argv[1]);
     bool listTiles = false;
-    
-    // Parse arguments
+
     for (int i = 2; i < argc; ++i) {
         if (std::strcmp(argv[i], "--list") == 0) {
             listTiles = true;
         } else {
-            std::cerr << "Unknown option: " << argv[i] << std::endl;
-            printUsage(argv[0]);
+            std::cerr << "Unknown option: " << argv[i] << "\n\n";
+            printUsage(std::cerr, argv[0]);
             return 1;
         }
     }
-    
-    // Load WDT file
-    TileMap* tile_map = worldwright::load(path);
-    if (tile_map == nullptr) {
-        std::cerr << "Error: Failed to load WDT file: " << path << std::endl;
+
+    worldwright::WdtReader reader;
+    if (!reader.load(path)) {
+        std::cerr << "Error: " << reader.errorMessage() << '\n';
         return 1;
     }
-    
-    // Print basic info
-    std::cout << "WDT File Info" << std::endl;
-    std::cout << "=============" << std::endl;
-    std::cout << "Total tiles: " << worldwright::tileCount(tile_map) << std::endl;
-    std::cout << "Existing tiles: " << worldwright::existingTileCount(tile_map) << std::endl;
-    std::cout << "Grid size: " << tile_map->width() << " x " 
-              << tile_map->height() << std::endl;
-    std::cout << std::endl;
-    
-    // Print tile list if requested
-    if (listTiles) {
-        std::cout << "Existing tiles:" << std::endl;
-        std::vector<std::pair<uint32_t, uint32_t>> tiles = worldwright::existingTiles(tile_map);
-        for (size_t i = 0; i < tiles.size(); ++i) {
-            uint32_t block_x = tiles[i].first;
-            uint32_t block_y = tiles[i].second;
-            std::cout << "  " << std::setw(2) << (i + 1) << " | BLOCK_X: " << block_x 
-                      << " | BLOCK_Y: " << block_y << std::endl;
-        }
-        std::cout << std::endl;
-        std::cout << "Total existing tiles: " << tiles.size() << std::endl;
+
+    std::cout << "Worldwright WDT Inspector\n";
+    std::cout << "File: " << path.string() << '\n';
+    std::cout << "Version: " << reader.version() << '\n';
+    std::cout << "Grid: " << worldwright::WdtReader::kGridWidth << " x "
+              << worldwright::WdtReader::kGridHeight << '\n';
+    std::cout << "Existing tiles: " << reader.tileCount() << '\n';
+
+    int minX = 0;
+    int minY = 0;
+    int maxX = 0;
+    int maxY = 0;
+    if (reader.tileBounds(minX, minY, maxX, maxY)) {
+        std::cout << "Tile bounds: (" << minX << ',' << minY << ") to (" << maxX
+                  << ',' << maxY << ")\n";
+    } else {
+        std::cout << "Tile bounds: none\n";
     }
-    
-    // Clean up
-    delete tile_map;
-    
+
+    if (listTiles) {
+        std::cout << "\nExisting tiles:\n";
+        for (const auto& tile : reader.existingTiles()) {
+            std::cout << "  (" << tile.first << ',' << tile.second << ")\n";
+        }
+    }
+
     return 0;
 }

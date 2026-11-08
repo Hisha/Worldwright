@@ -8,9 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/smithkt/git/Worldwright/src/worldwright/WdtParser.cpp" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o" "gcc" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtParser.cpp.o.d"
-  "/home/smithkt/git/Worldwright/src/worldwright/WdtTileMap.cpp" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o" "gcc" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtTileMap.cpp.o.d"
-  "/home/smithkt/git/Worldwright/src/worldwright/Worldwright.cpp" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o" "gcc" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/Worldwright.cpp.o.d"
+  "/home/smithkt/git/Worldwright/src/worldwright/WdtReader.cpp" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o" "gcc" "CMakeFiles/WorldwrightWdtReader.dir/src/worldwright/WdtReader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/worldwright-wdt-test-fixtures.dir/link.d "CMakeFiles/worldwright-wdt-test-fixtures.dir/tests/WdtFixtureGenerator.cpp.o" -o worldwright-wdt-test-fixtures

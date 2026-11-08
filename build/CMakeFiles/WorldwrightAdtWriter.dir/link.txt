@@ -1,0 +1,2 @@
+/usr/bin/ar qc libWorldwrightAdtWriter.a CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/TerrainDefinition.cpp.o CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/AdtWriter.cpp.o
+/usr/bin/ranlib libWorldwrightAdtWriter.a

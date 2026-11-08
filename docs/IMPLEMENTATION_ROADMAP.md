@@ -1,6 +1,23 @@
 # Implementation Roadmap
 
-Status: planning only. Implementation starts after owner approval of this roadmap and of decisions D1–D5 below. Effort figures are rough engineering estimates for one or two developers, not commitments.
+Status: Phase 0 complete; Phase 1 in progress. W001 (WDT reader), W002 (world
+model plus WDT writer), and W003 (flat ADT terrain writer) are implemented and
+structurally tested. W003 client loading remains explicitly unverified. The
+overall architectural direction below is unchanged. Effort figures are rough
+engineering estimates for one or two developers, not commitments.
+
+## 0. Milestone progress
+
+| Milestone | Scope | Status |
+|---|---|---|
+| W001 | Read 3.3.5a terrain WDT (`MVER`, `MPHD`, `MAIN`), inspector CLI, tests | Complete. See `WDT_READER.md`. |
+| W002 | `WorldDefinition` model, deterministic WDT writer, creation CLI, raw-byte and round-trip tests | Complete. See `WDT_WRITER.md`. |
+| W003 | Flat ADT model/writer, one-tile raw-byte validation, seamless 3×3 generation | Complete structurally; client acceptance unverified. See `ADT_WRITER.md`. |
+| W004+ | Remaining ADT features, WDL/DBC writers, heightmap import, project/export pipeline | Not started. |
+
+W002 intentionally produces standalone `.wdt` files only. Packaging and client
+delivery remain with mod-content-manager (EPF) and Portalkeeper, as described in
+`CONTENT_PIPELINE.md`.
 
 ## 1. Recommendation being planned
 
@@ -25,6 +42,12 @@ Done: clones of four candidates at known revisions; noggit3 Linux build verified
 Exit criteria (met): five reports written with citations; recommendation stated; decisions D1–D5 listed.
 
 ### Phase 1 — Format core (no UI)
+
+Progress: W001 reads terrain WDTs, W002 writes terrain WDTs deterministically,
+and W003 writes deterministic flat ADTs with the native staggered vertex grid.
+W003 has raw-byte and seamless 3×3 validation but not client-load validation.
+The remaining Phase 1 work includes non-flat/painted ADT features, WDL, DBC,
+and heightmap import/export.
 
 Scope:
 - ADT (MCNK, MCVT, MCNR, MCLY, MCAL with big alpha, MCSH optional, MH2O, MFBO, MCCV), WDT (MPHD, MAIN, MAID optional), WDL (MARE, MAHO, MAOF) reader and writer.

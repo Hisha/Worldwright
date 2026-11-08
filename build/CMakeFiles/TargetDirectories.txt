@@ -1,6 +1,3 @@
-/home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightWdtReader.dir
-/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-info.dir
-/home/smithkt/git/Worldwright/build/CMakeFiles/WDT_tests.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/Experimental.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/Nightly.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/Continuous.dir
@@ -29,6 +26,16 @@
 /home/smithkt/git/Worldwright/build/CMakeFiles/ContinuousCoverage.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/ContinuousMemCheck.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/ContinuousSubmit.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightWdtReader.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightWdtWriter.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightAdtWriter.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-info.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-create.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-adt-create.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-tests.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-test-fixtures.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-writer-tests.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-adt-writer-tests.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/test.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/edit_cache.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/rebuild_cache.dir

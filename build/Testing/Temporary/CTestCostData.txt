@@ -1,1 +1,8 @@
+wdt_reader_unit 11 0.000414487
+wdt_fixtures 11 0.000338737
+wdt_cli 11 0.00387064
+wdt_writer_unit 8 0.00290313
+wdt_create_cli 8 0.00886675
+adt_writer_unit 3 0.0318582
+adt_create_cli 3 0.0508034
 ---

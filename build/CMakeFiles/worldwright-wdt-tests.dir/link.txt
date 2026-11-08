@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/worldwright-wdt-tests.dir/link.d "CMakeFiles/worldwright-wdt-tests.dir/tests/WdtReaderTests.cpp.o" -o worldwright-wdt-tests  libWorldwrightWdtReader.a

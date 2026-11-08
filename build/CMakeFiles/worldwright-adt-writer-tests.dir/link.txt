@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/worldwright-adt-writer-tests.dir/link.d "CMakeFiles/worldwright-adt-writer-tests.dir/tests/AdtWriterTests.cpp.o" -o worldwright-adt-writer-tests  libWorldwrightAdtWriter.a
