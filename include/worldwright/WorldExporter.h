@@ -16,6 +16,7 @@ enum class WorldExportError {
     OutputExists,
     StagingFailed,
     WriteFailed,
+    VerificationFailed,
     CommitFailed,
 };
 

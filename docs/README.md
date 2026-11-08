@@ -21,6 +21,10 @@ The primary build and W004 user guide is in the repository
 
 - [Terrain height editing engine](TERRAIN_HEIGHT_EDITOR.md)
 
+## W005C
+
+- [Terrain normals, serialized seam verification, and AzerothCore compatibility](W005C_TERRAIN_CORRECTNESS.md)
+
 ## W004
 
 - Optional Qt 6 Widgets graphical world-layout editor

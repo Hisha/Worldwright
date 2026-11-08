@@ -171,11 +171,19 @@ chunk's minimum absolute elevation becomes its MCNK base Z and MCVT stores
 `absoluteHeight - baseZ`. Thus a flat tile at 100 has base Z 100 and 145 zero
 MCVT deltas per chunk.
 
-Normals are encoded as signed bytes `(0, 0, 127)`, matching the compact client
-sample. W005A can now serialize non-flat MCVT geometry, but normal recalculation
-and confirmation of the non-flat component-axis permutation remain deferred.
-Edited geometry therefore exports correctly while its lighting normals remain
-flat, a documented compatibility limitation rather than a new ADT format.
+Normals are derived from the serialized terrain topology. Each cell's four
+upward-wound triangles contribute area-weighted face normals to their outer
+corners and inner center; the accumulated vector is normalized and quantized
+to signed bytes scaled by 127. MCNR byte order is WoW horizontal X, horizontal
+Y, and up Z (also described as `X,Z,Y` in Y-up renderer coordinates). Flat
+terrain remains exactly `(0, 0, 127)`.
+
+World export supplies each writer invocation with the available 3x3 terrain
+neighborhood. Shared-border and shared-corner vertices therefore accumulate
+the same faces on every owning ADT. Missing/disabled neighbors contribute no
+faces; the available one-sided mesh is used, with `(0,0,127)` as the
+deterministic fallback only when no valid face exists. Single-tile CLI export
+uses this documented missing-neighbor policy.
 
 ## Coordinates and seams
 

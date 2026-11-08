@@ -241,6 +241,24 @@ if(BUILD_TESTING)
     worldwright_enable_warnings(worldwright-adt-writer-tests)
     add_test(NAME adt_writer_unit COMMAND worldwright-adt-writer-tests)
 
+    add_executable(worldwright-adt-integrity-tests
+        tests/AdtTerrainIntegrityTests.cpp
+    )
+    target_link_libraries(worldwright-adt-integrity-tests PRIVATE
+        WorldwrightEditorCore
+    )
+    worldwright_enable_warnings(worldwright-adt-integrity-tests)
+    add_test(NAME adt_terrain_integrity
+             COMMAND worldwright-adt-integrity-tests)
+
+    add_executable(worldwright-w005c-fixture-generator
+        tests/W005CFixtureGenerator.cpp
+    )
+    target_link_libraries(worldwright-w005c-fixture-generator PRIVATE
+        WorldwrightEditorCore
+    )
+    worldwright_enable_warnings(worldwright-w005c-fixture-generator)
+
     add_test(NAME adt_create_cli
         COMMAND ${CMAKE_COMMAND}
                 "-DCREATE_CLI=$<TARGET_FILE:worldwright-adt-create>"

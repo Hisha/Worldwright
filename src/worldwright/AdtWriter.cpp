@@ -47,6 +47,171 @@ constexpr std::size_t kMcnrPaddingSize = 13;
 constexpr std::uint32_t kDoNotFixAlphaMapFlag = 0x00008000u;
 constexpr char kBaseTexture[] =
     "Tileset\\The Blasted Lands\\BlastedLandsBlack.blp";
+constexpr int kHalfCellsPerTile =
+    TerrainDefinition::InnerVerticesPerTileSide * 2;
+
+struct Vector3 {
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+};
+
+struct HeightPoint {
+    int x;
+    int y;
+    double height;
+};
+
+Vector3 operator-(const Vector3& left, const Vector3& right) noexcept {
+    return {left.x - right.x, left.y - right.y, left.z - right.z};
+}
+
+Vector3 cross(const Vector3& left, const Vector3& right) noexcept {
+    return {left.y * right.z - left.z * right.y,
+            left.z * right.x - left.x * right.z,
+            left.x * right.y - left.y * right.x};
+}
+
+double length(const Vector3& value) noexcept {
+    return std::sqrt(value.x * value.x + value.y * value.y +
+                     value.z * value.z);
+}
+
+bool sampleHeight(const AdtTerrainNeighborhood& neighborhood, int halfX,
+                  int halfY, double& height) noexcept {
+    // Candidate owners are visited in global row-major order. This matches the
+    // editor's canonical shared-outer-vertex rule and makes both exporters of
+    // a shared edge choose the same value.
+    for (int offsetY = -1; offsetY <= 1; ++offsetY) {
+        for (int offsetX = -1; offsetX <= 1; ++offsetX) {
+            const auto* terrain = neighborhood.terrainAt(offsetX, offsetY);
+            if (terrain == nullptr) {
+                continue;
+            }
+            const int localX = halfX - offsetX * kHalfCellsPerTile;
+            const int localY = halfY - offsetY * kHalfCellsPerTile;
+            if ((localX & 1) == 0 && (localY & 1) == 0 && localX >= 0 &&
+                localY >= 0 && localX <= kHalfCellsPerTile &&
+                localY <= kHalfCellsPerTile) {
+                height = terrain->outerHeight(localY / 2, localX / 2);
+                return std::isfinite(height);
+            }
+            if ((localX & 1) != 0 && (localY & 1) != 0 && localX > 0 &&
+                localY > 0 && localX < kHalfCellsPerTile &&
+                localY < kHalfCellsPerTile) {
+                height = terrain->innerHeight((localY - 1) / 2,
+                                              (localX - 1) / 2);
+                return std::isfinite(height);
+            }
+        }
+    }
+    return false;
+}
+
+Vector3 wowPosition(const HeightPoint& point) noexcept {
+    constexpr double halfCell =
+        static_cast<double>(TerrainDefinition::TileSize) /
+        kHalfCellsPerTile;
+    // Editor column -> negative WoW Y; editor row -> negative WoW X.
+    return {-point.y * halfCell, -point.x * halfCell, point.height};
+}
+
+Vector3 terrainNormal(const AdtTerrainNeighborhood& neighborhood, int halfX,
+                      int halfY) noexcept {
+    Vector3 sum;
+    const bool inner = (halfX & 1) != 0 && (halfY & 1) != 0;
+    const int cellXs[2] = {inner ? halfX - 1 : halfX - 2, halfX};
+    const int cellYs[2] = {inner ? halfY - 1 : halfY - 2, halfY};
+    const int cellCount = inner ? 1 : 2;
+    for (int cellYIndex = 0; cellYIndex < cellCount; ++cellYIndex) {
+        const int cellY = cellYs[cellYIndex];
+        for (int cellXIndex = 0; cellXIndex < cellCount; ++cellXIndex) {
+            const int cellX = cellXs[cellXIndex];
+            if ((cellX & 1) != 0 || (cellY & 1) != 0) {
+                continue;
+            }
+            HeightPoint points[5] = {{cellX, cellY, 0.0},
+                                     {cellX + 2, cellY, 0.0},
+                                     {cellX + 2, cellY + 2, 0.0},
+                                     {cellX, cellY + 2, 0.0},
+                                     {cellX + 1, cellY + 1, 0.0}};
+            bool complete = true;
+            for (auto& point : points) {
+                if (!sampleHeight(neighborhood, point.x, point.y,
+                                  point.height)) {
+                    complete = false;
+                    break;
+                }
+            }
+            if (!complete) {
+                continue;
+            }
+
+            // center/TL/BL, center/TR/TL, center/BR/TR, center/BL/BR
+            constexpr int triangles[4][3] = {
+                {4, 0, 3}, {4, 1, 0}, {4, 2, 1}, {4, 3, 2}};
+            for (const auto& triangle : triangles) {
+                const auto& a = points[triangle[0]];
+                const auto& b = points[triangle[1]];
+                const auto& c = points[triangle[2]];
+                const bool containsTarget =
+                    (a.x == halfX && a.y == halfY) ||
+                    (b.x == halfX && b.y == halfY) ||
+                    (c.x == halfX && c.y == halfY);
+                if (!containsTarget) {
+                    continue;
+                }
+                const auto pa = wowPosition(a);
+                const auto face = cross(wowPosition(b) - pa,
+                                        wowPosition(c) - pa);
+                if (std::isfinite(face.x) && std::isfinite(face.y) &&
+                    std::isfinite(face.z) && face.z > 0.0) {
+                    sum.x += face.x;
+                    sum.y += face.y;
+                    sum.z += face.z;
+                }
+            }
+        }
+    }
+
+    const double magnitude = length(sum);
+    if (!std::isfinite(magnitude) || magnitude <= 0.0) {
+        return {0.0, 0.0, 1.0};
+    }
+    return {sum.x / magnitude, sum.y / magnitude, sum.z / magnitude};
+}
+
+std::int8_t encodeNormalComponent(double component) noexcept {
+    if (!std::isfinite(component)) {
+        return 0;
+    }
+    const auto quantized = static_cast<int>(std::lround(component * 127.0));
+    return static_cast<std::int8_t>(std::max(-127, std::min(127, quantized)));
+}
+
+void appendNormal(Bytes& output, const Vector3& normal) {
+    for (const double component : {normal.x, normal.y, normal.z}) {
+        output.push_back(static_cast<std::uint8_t>(
+            encodeNormalComponent(component)));
+    }
+}
+
+void vertexHalfCoordinates(int chunkX, int chunkY, int vertex, int& halfX,
+                           int& halfY) noexcept {
+    const int pairRow = vertex / 17;
+    const int withinRow = vertex % 17;
+    halfY = chunkY * 16 + pairRow * 2;
+    if (pairRow < TerrainDefinition::CellsPerChunkSide &&
+        withinRow >= TerrainDefinition::OuterVerticesPerChunkSide) {
+        halfX = chunkX * 16 +
+                (withinRow - TerrainDefinition::OuterVerticesPerChunkSide) *
+                    2 +
+                1;
+        ++halfY;
+    } else {
+        halfX = chunkX * 16 + withinRow * 2;
+    }
+}
 
 void appendU32(Bytes& out, std::uint32_t value) {
     out.push_back(static_cast<std::uint8_t>(value));
@@ -121,13 +286,62 @@ std::string describePath(const std::filesystem::path& path) {
 
 }  // namespace
 
+bool AdtTerrainNeighborhood::setTerrain(
+    int offsetX, int offsetY, const TerrainDefinition* terrain) noexcept {
+    if (offsetX < -1 || offsetX > 1 || offsetY < -1 || offsetY > 1) {
+        return false;
+    }
+    m_terrain[static_cast<std::size_t>(offsetY + 1) * 3 +
+              static_cast<std::size_t>(offsetX + 1)] = terrain;
+    return true;
+}
+
+const TerrainDefinition* AdtTerrainNeighborhood::terrainAt(
+    int offsetX, int offsetY) const noexcept {
+    if (offsetX < -1 || offsetX > 1 || offsetY < -1 || offsetY > 1) {
+        return nullptr;
+    }
+    return m_terrain[static_cast<std::size_t>(offsetY + 1) * 3 +
+                     static_cast<std::size_t>(offsetX + 1)];
+}
+
 bool AdtWriter::serialize(const TerrainDefinition& terrain, int tileX,
                           int tileY, std::vector<std::uint8_t>& output) {
+    AdtTerrainNeighborhood neighborhood;
+    neighborhood.setTerrain(0, 0, &terrain);
+    return serializeImpl(terrain, tileX, tileY, neighborhood, output);
+}
+
+bool AdtWriter::serialize(const TerrainDefinition& terrain, int tileX,
+                          int tileY,
+                          const AdtTerrainNeighborhood& neighborhood,
+                          std::vector<std::uint8_t>& output) {
+    auto completeNeighborhood = neighborhood;
+    completeNeighborhood.setTerrain(0, 0, &terrain);
+    return serializeImpl(terrain, tileX, tileY, completeNeighborhood, output);
+}
+
+bool AdtWriter::serializeImpl(const TerrainDefinition& terrain, int tileX,
+                              int tileY,
+                              const AdtTerrainNeighborhood& neighborhood,
+                              std::vector<std::uint8_t>& output) {
     reset();
     output.clear();
     if (!terrain.isValid()) {
         return fail(AdtWriteError::InvalidTerrain,
                     "terrain contains a non-finite elevation");
+    }
+    for (int offsetY = -1; offsetY <= 1; ++offsetY) {
+        for (int offsetX = -1; offsetX <= 1; ++offsetX) {
+            const auto* neighbor = neighborhood.terrainAt(offsetX, offsetY);
+            if (neighbor != nullptr && !neighbor->isValid()) {
+                return fail(AdtWriteError::InvalidTerrain,
+                            "normal neighborhood contains a non-finite "
+                            "elevation at offset (" +
+                                std::to_string(offsetX) + "," +
+                                std::to_string(offsetY) + ")");
+            }
+        }
     }
     if (tileX < 0 || tileY < 0 || tileX >= 64 || tileY >= 64) {
         return fail(AdtWriteError::InvalidTile,
@@ -219,9 +433,11 @@ bool AdtWriter::serialize(const TerrainDefinition& terrain, int tileX,
             patchU32(output, header + 24, relativeOffset(mcnrStart));
             for (int vertex = 0; vertex < TerrainDefinition::VerticesPerChunk;
                  ++vertex) {
-                output.push_back(0);
-                output.push_back(0);
-                output.push_back(127);
+                int halfX = 0;
+                int halfY = 0;
+                vertexHalfCoordinates(chunkX, chunkY, vertex, halfX, halfY);
+                appendNormal(output,
+                             terrainNormal(neighborhood, halfX, halfY));
             }
             endChunk(output, mcnrStart);
             output.insert(output.end(), kMcnrPaddingSize, 0);
@@ -284,6 +500,26 @@ bool AdtWriter::serialize(const TerrainDefinition& terrain, int tileX,
 bool AdtWriter::save(const TerrainDefinition& terrain, int tileX, int tileY,
                      const std::filesystem::path& outputPath,
                      const AdtWriteOptions& options) {
+    AdtTerrainNeighborhood neighborhood;
+    neighborhood.setTerrain(0, 0, &terrain);
+    return saveImpl(terrain, tileX, tileY, neighborhood, outputPath, options);
+}
+
+bool AdtWriter::save(const TerrainDefinition& terrain, int tileX, int tileY,
+                     const AdtTerrainNeighborhood& neighborhood,
+                     const std::filesystem::path& outputPath,
+                     const AdtWriteOptions& options) {
+    auto completeNeighborhood = neighborhood;
+    completeNeighborhood.setTerrain(0, 0, &terrain);
+    return saveImpl(terrain, tileX, tileY, completeNeighborhood, outputPath,
+                    options);
+}
+
+bool AdtWriter::saveImpl(const TerrainDefinition& terrain, int tileX,
+                         int tileY,
+                         const AdtTerrainNeighborhood& neighborhood,
+                         const std::filesystem::path& outputPath,
+                         const AdtWriteOptions& options) {
     reset();
     if (outputPath.empty() || !outputPath.has_filename()) {
         return fail(AdtWriteError::InvalidPath,
@@ -313,7 +549,7 @@ bool AdtWriter::save(const TerrainDefinition& terrain, int tileX, int tileY,
     }
 
     Bytes bytes;
-    if (!serialize(terrain, tileX, tileY, bytes)) {
+    if (!serializeImpl(terrain, tileX, tileY, neighborhood, bytes)) {
         return false;
     }
     const auto tempPath = makeTempPath(outputPath);

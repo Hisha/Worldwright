@@ -3,12 +3,26 @@
 
 #include "worldwright/TerrainDefinition.h"
 
+#include <array>
 #include <cstdint>
 #include <filesystem>
 #include <string>
 #include <vector>
 
 namespace worldwright {
+
+// Optional 3x3 terrain view used to calculate normals at tile boundaries.
+// Offsets are relative to the tile being serialized. Missing/disabled tiles
+// remain null and contribute no mesh faces.
+struct AdtTerrainNeighborhood {
+    bool setTerrain(int offsetX, int offsetY,
+                    const TerrainDefinition* terrain) noexcept;
+    const TerrainDefinition* terrainAt(int offsetX,
+                                       int offsetY) const noexcept;
+
+private:
+    std::array<const TerrainDefinition*, 9> m_terrain{};
+};
 
 enum class AdtWriteError {
     None = 0,
@@ -38,7 +52,14 @@ public:
 
     bool serialize(const TerrainDefinition& terrain, int tileX, int tileY,
                    std::vector<std::uint8_t>& output);
+    bool serialize(const TerrainDefinition& terrain, int tileX, int tileY,
+                   const AdtTerrainNeighborhood& neighborhood,
+                   std::vector<std::uint8_t>& output);
     bool save(const TerrainDefinition& terrain, int tileX, int tileY,
+              const std::filesystem::path& outputPath,
+              const AdtWriteOptions& options = {});
+    bool save(const TerrainDefinition& terrain, int tileX, int tileY,
+              const AdtTerrainNeighborhood& neighborhood,
               const std::filesystem::path& outputPath,
               const AdtWriteOptions& options = {});
 
@@ -47,6 +68,13 @@ public:
     static const char* errorName(AdtWriteError error) noexcept;
 
 private:
+    bool serializeImpl(const TerrainDefinition& terrain, int tileX, int tileY,
+                       const AdtTerrainNeighborhood& neighborhood,
+                       std::vector<std::uint8_t>& output);
+    bool saveImpl(const TerrainDefinition& terrain, int tileX, int tileY,
+                  const AdtTerrainNeighborhood& neighborhood,
+                  const std::filesystem::path& outputPath,
+                  const AdtWriteOptions& options);
     bool fail(AdtWriteError error, std::string message);
     void reset() noexcept;
 

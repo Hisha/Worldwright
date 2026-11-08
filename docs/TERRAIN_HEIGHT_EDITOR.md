@@ -87,15 +87,11 @@ because all copies start from and return to the same canonical value.
 sharing the existing tile-size constant. Tests reconstruct an edited absolute
 height from serialized MCNK base Z plus its MCVT value.
 
-The writer still emits flat `(0,0,127)` MCNR normals. This does not alter MCVT
-geometry or structural parsing, but lighting normals for sculpted terrain are
-not recalculated in W005A. No new chunks, dependencies, GUI code, WDT changes,
-or persistence behavior were introduced.
-
-The automated suite validates Worldwright's serialized structure and MCVT
-values. AzerothCore `map_extractor` validation was not run for W005A because it
-requires an isolated build-12340 client data set and packaged MPQ input; parser
-and client acceptance therefore remain explicitly unverified.
+At W005A completion the writer still emitted flat `(0,0,127)` MCNR values.
+W005C supersedes that limitation with geometry-derived outer/inner normals,
+cross-ADT boundary context, serialized seam verification, and actual
+AzerothCore parser-harness coverage. See
+[W005C terrain correctness](W005C_TERRAIN_CORRECTNESS.md).
 
 The engine tests vertices only in brush-overlapped tiles and caches only source
 heights needed by affected vertices (plus smoothing neighbors). It never copies
