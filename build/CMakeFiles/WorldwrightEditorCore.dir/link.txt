@@ -1,0 +1,2 @@
+/usr/bin/ar qc libWorldwrightEditorCore.a CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/EditorInteraction.cpp.o CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldEditorModel.cpp.o CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldExporter.cpp.o
+/usr/bin/ranlib libWorldwrightEditorCore.a

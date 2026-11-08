@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(WORLDWRIGHT_BUILD_GUI "Build the Qt 6 graphical world editor" ON)
+
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 endif()
@@ -75,6 +77,23 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND
     target_link_libraries(WorldwrightAdtWriter PUBLIC stdc++fs)
 endif()
 
+add_library(WorldwrightEditorCore
+    src/worldwright/EditorInteraction.cpp
+    src/worldwright/WorldEditorModel.cpp
+    src/worldwright/WorldExporter.cpp
+)
+add_library(Worldwright::EditorCore ALIAS WorldwrightEditorCore)
+target_compile_features(WorldwrightEditorCore PUBLIC cxx_std_17)
+target_include_directories(WorldwrightEditorCore PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_link_libraries(WorldwrightEditorCore PUBLIC
+    WorldwrightWdtWriter
+    WorldwrightAdtWriter
+)
+worldwright_enable_warnings(WorldwrightEditorCore)
+
 # ---------------------------------------------------------------------------
 # Command-line tools
 # ---------------------------------------------------------------------------
@@ -100,15 +119,50 @@ target_link_libraries(worldwright-adt-create PRIVATE
 worldwright_enable_warnings(worldwright-adt-create)
 
 # ---------------------------------------------------------------------------
+# Optional Qt graphical editor
+# ---------------------------------------------------------------------------
+if(WORLDWRIGHT_BUILD_GUI)
+    find_package(Qt6 6.2 COMPONENTS Widgets QUIET)
+    if(Qt6Widgets_FOUND)
+        add_executable(worldwright
+            src/worldwright/gui/gui_main.cpp
+            src/worldwright/gui/MainWindow.cpp
+            src/worldwright/gui/MainWindow.h
+            src/worldwright/gui/WorldMapWidget.cpp
+            src/worldwright/gui/WorldMapWidget.h
+        )
+        target_link_libraries(worldwright PRIVATE
+            WorldwrightEditorCore
+            Qt6::Widgets
+        )
+        target_include_directories(worldwright PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/worldwright/gui
+        )
+        worldwright_enable_warnings(worldwright)
+    else()
+        message(WARNING
+            "Qt 6 Widgets development files were not found; the worldwright "
+            "GUI target will not be built. On Ubuntu install qt6-base-dev "
+            "(and qt6-base-dev-tools), then reconfigure. CLI tools and tests "
+            "remain available. Set WORLDWRIGHT_BUILD_GUI=OFF for an explicit "
+            "headless build.")
+    endif()
+endif()
+
+# ---------------------------------------------------------------------------
 # Installation
 # ---------------------------------------------------------------------------
 install(TARGETS WorldwrightWdtReader WorldwrightWdtWriter WorldwrightAdtWriter
+                WorldwrightEditorCore
                 worldwright-wdt-info worldwright-wdt-create
                 worldwright-adt-create
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+if(TARGET worldwright)
+    install(TARGETS worldwright RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+endif()
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # ---------------------------------------------------------------------------
@@ -187,4 +241,14 @@ if(BUILD_TESTING)
                 "-DWORK_DIR=${CMAKE_CURRENT_BINARY_DIR}/adt-create-cli-work"
                 -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/AdtCreateCliTests.cmake"
     )
+
+    add_executable(worldwright-editor-core-tests
+        tests/WorldEditorTests.cpp
+    )
+    target_link_libraries(worldwright-editor-core-tests PRIVATE
+        WorldwrightEditorCore
+        WorldwrightWdtReader
+    )
+    worldwright_enable_warnings(worldwright-editor-core-tests)
+    add_test(NAME editor_core_unit COMMAND worldwright-editor-core-tests)
 endif()

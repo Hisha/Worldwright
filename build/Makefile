@@ -575,6 +575,19 @@ WorldwrightAdtWriter/fast:
 .PHONY : WorldwrightAdtWriter/fast
 
 #=============================================================================
+# Target rules for targets named WorldwrightEditorCore
+
+# Build rule for target.
+WorldwrightEditorCore: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 WorldwrightEditorCore
+.PHONY : WorldwrightEditorCore
+
+# fast build rule for target.
+WorldwrightEditorCore/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/build
+.PHONY : WorldwrightEditorCore/fast
+
+#=============================================================================
 # Target rules for targets named worldwright-wdt-info
 
 # Build rule for target.
@@ -612,6 +625,19 @@ worldwright-adt-create: cmake_check_build_system
 worldwright-adt-create/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/build
 .PHONY : worldwright-adt-create/fast
+
+#=============================================================================
+# Target rules for targets named worldwright
+
+# Build rule for target.
+worldwright: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright
+.PHONY : worldwright
+
+# fast build rule for target.
+worldwright/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/build
+.PHONY : worldwright/fast
 
 #=============================================================================
 # Target rules for targets named worldwright-wdt-tests
@@ -665,6 +691,19 @@ worldwright-adt-writer-tests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/build
 .PHONY : worldwright-adt-writer-tests/fast
 
+#=============================================================================
+# Target rules for targets named worldwright-editor-core-tests
+
+# Build rule for target.
+worldwright-editor-core-tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 worldwright-editor-core-tests
+.PHONY : worldwright-editor-core-tests
+
+# fast build rule for target.
+worldwright-editor-core-tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/build
+.PHONY : worldwright-editor-core-tests/fast
+
 src/worldwright/AdtWriter.o: src/worldwright/AdtWriter.cpp.o
 .PHONY : src/worldwright/AdtWriter.o
 
@@ -688,6 +727,30 @@ src/worldwright/AdtWriter.s: src/worldwright/AdtWriter.cpp.s
 src/worldwright/AdtWriter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightAdtWriter.dir/build.make CMakeFiles/WorldwrightAdtWriter.dir/src/worldwright/AdtWriter.cpp.s
 .PHONY : src/worldwright/AdtWriter.cpp.s
+
+src/worldwright/EditorInteraction.o: src/worldwright/EditorInteraction.cpp.o
+.PHONY : src/worldwright/EditorInteraction.o
+
+# target to build an object file
+src/worldwright/EditorInteraction.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/EditorInteraction.cpp.o
+.PHONY : src/worldwright/EditorInteraction.cpp.o
+
+src/worldwright/EditorInteraction.i: src/worldwright/EditorInteraction.cpp.i
+.PHONY : src/worldwright/EditorInteraction.i
+
+# target to preprocess a source file
+src/worldwright/EditorInteraction.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/EditorInteraction.cpp.i
+.PHONY : src/worldwright/EditorInteraction.cpp.i
+
+src/worldwright/EditorInteraction.s: src/worldwright/EditorInteraction.cpp.s
+.PHONY : src/worldwright/EditorInteraction.s
+
+# target to generate assembly for a file
+src/worldwright/EditorInteraction.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/EditorInteraction.cpp.s
+.PHONY : src/worldwright/EditorInteraction.cpp.s
 
 src/worldwright/TerrainDefinition.o: src/worldwright/TerrainDefinition.cpp.o
 .PHONY : src/worldwright/TerrainDefinition.o
@@ -785,6 +848,54 @@ src/worldwright/WorldDefinition.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/src/worldwright/WorldDefinition.cpp.s
 .PHONY : src/worldwright/WorldDefinition.cpp.s
 
+src/worldwright/WorldEditorModel.o: src/worldwright/WorldEditorModel.cpp.o
+.PHONY : src/worldwright/WorldEditorModel.o
+
+# target to build an object file
+src/worldwright/WorldEditorModel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldEditorModel.cpp.o
+.PHONY : src/worldwright/WorldEditorModel.cpp.o
+
+src/worldwright/WorldEditorModel.i: src/worldwright/WorldEditorModel.cpp.i
+.PHONY : src/worldwright/WorldEditorModel.i
+
+# target to preprocess a source file
+src/worldwright/WorldEditorModel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldEditorModel.cpp.i
+.PHONY : src/worldwright/WorldEditorModel.cpp.i
+
+src/worldwright/WorldEditorModel.s: src/worldwright/WorldEditorModel.cpp.s
+.PHONY : src/worldwright/WorldEditorModel.s
+
+# target to generate assembly for a file
+src/worldwright/WorldEditorModel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldEditorModel.cpp.s
+.PHONY : src/worldwright/WorldEditorModel.cpp.s
+
+src/worldwright/WorldExporter.o: src/worldwright/WorldExporter.cpp.o
+.PHONY : src/worldwright/WorldExporter.o
+
+# target to build an object file
+src/worldwright/WorldExporter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldExporter.cpp.o
+.PHONY : src/worldwright/WorldExporter.cpp.o
+
+src/worldwright/WorldExporter.i: src/worldwright/WorldExporter.cpp.i
+.PHONY : src/worldwright/WorldExporter.i
+
+# target to preprocess a source file
+src/worldwright/WorldExporter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldExporter.cpp.i
+.PHONY : src/worldwright/WorldExporter.cpp.i
+
+src/worldwright/WorldExporter.s: src/worldwright/WorldExporter.cpp.s
+.PHONY : src/worldwright/WorldExporter.s
+
+# target to generate assembly for a file
+src/worldwright/WorldExporter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/src/worldwright/WorldExporter.cpp.s
+.PHONY : src/worldwright/WorldExporter.cpp.s
+
 src/worldwright/adt_create_main.o: src/worldwright/adt_create_main.cpp.o
 .PHONY : src/worldwright/adt_create_main.o
 
@@ -832,6 +943,78 @@ src/worldwright/create_main.s: src/worldwright/create_main.cpp.s
 src/worldwright/create_main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/src/worldwright/create_main.cpp.s
 .PHONY : src/worldwright/create_main.cpp.s
+
+src/worldwright/gui/MainWindow.o: src/worldwright/gui/MainWindow.cpp.o
+.PHONY : src/worldwright/gui/MainWindow.o
+
+# target to build an object file
+src/worldwright/gui/MainWindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/MainWindow.cpp.o
+.PHONY : src/worldwright/gui/MainWindow.cpp.o
+
+src/worldwright/gui/MainWindow.i: src/worldwright/gui/MainWindow.cpp.i
+.PHONY : src/worldwright/gui/MainWindow.i
+
+# target to preprocess a source file
+src/worldwright/gui/MainWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/MainWindow.cpp.i
+.PHONY : src/worldwright/gui/MainWindow.cpp.i
+
+src/worldwright/gui/MainWindow.s: src/worldwright/gui/MainWindow.cpp.s
+.PHONY : src/worldwright/gui/MainWindow.s
+
+# target to generate assembly for a file
+src/worldwright/gui/MainWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/MainWindow.cpp.s
+.PHONY : src/worldwright/gui/MainWindow.cpp.s
+
+src/worldwright/gui/WorldMapWidget.o: src/worldwright/gui/WorldMapWidget.cpp.o
+.PHONY : src/worldwright/gui/WorldMapWidget.o
+
+# target to build an object file
+src/worldwright/gui/WorldMapWidget.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/WorldMapWidget.cpp.o
+.PHONY : src/worldwright/gui/WorldMapWidget.cpp.o
+
+src/worldwright/gui/WorldMapWidget.i: src/worldwright/gui/WorldMapWidget.cpp.i
+.PHONY : src/worldwright/gui/WorldMapWidget.i
+
+# target to preprocess a source file
+src/worldwright/gui/WorldMapWidget.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/WorldMapWidget.cpp.i
+.PHONY : src/worldwright/gui/WorldMapWidget.cpp.i
+
+src/worldwright/gui/WorldMapWidget.s: src/worldwright/gui/WorldMapWidget.cpp.s
+.PHONY : src/worldwright/gui/WorldMapWidget.s
+
+# target to generate assembly for a file
+src/worldwright/gui/WorldMapWidget.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/WorldMapWidget.cpp.s
+.PHONY : src/worldwright/gui/WorldMapWidget.cpp.s
+
+src/worldwright/gui/gui_main.o: src/worldwright/gui/gui_main.cpp.o
+.PHONY : src/worldwright/gui/gui_main.o
+
+# target to build an object file
+src/worldwright/gui/gui_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/gui_main.cpp.o
+.PHONY : src/worldwright/gui/gui_main.cpp.o
+
+src/worldwright/gui/gui_main.i: src/worldwright/gui/gui_main.cpp.i
+.PHONY : src/worldwright/gui/gui_main.i
+
+# target to preprocess a source file
+src/worldwright/gui/gui_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/gui_main.cpp.i
+.PHONY : src/worldwright/gui/gui_main.cpp.i
+
+src/worldwright/gui/gui_main.s: src/worldwright/gui/gui_main.cpp.s
+.PHONY : src/worldwright/gui/gui_main.s
+
+# target to generate assembly for a file
+src/worldwright/gui/gui_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/src/worldwright/gui/gui_main.cpp.s
+.PHONY : src/worldwright/gui/gui_main.cpp.s
 
 src/worldwright/main.o: src/worldwright/main.cpp.o
 .PHONY : src/worldwright/main.o
@@ -953,6 +1136,30 @@ tests/WdtWriterTests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/tests/WdtWriterTests.cpp.s
 .PHONY : tests/WdtWriterTests.cpp.s
 
+tests/WorldEditorTests.o: tests/WorldEditorTests.cpp.o
+.PHONY : tests/WorldEditorTests.o
+
+# target to build an object file
+tests/WorldEditorTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/tests/WorldEditorTests.cpp.o
+.PHONY : tests/WorldEditorTests.cpp.o
+
+tests/WorldEditorTests.i: tests/WorldEditorTests.cpp.i
+.PHONY : tests/WorldEditorTests.i
+
+# target to preprocess a source file
+tests/WorldEditorTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/tests/WorldEditorTests.cpp.i
+.PHONY : tests/WorldEditorTests.cpp.i
+
+tests/WorldEditorTests.s: tests/WorldEditorTests.cpp.s
+.PHONY : tests/WorldEditorTests.s
+
+# target to generate assembly for a file
+tests/WorldEditorTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/tests/WorldEditorTests.cpp.s
+.PHONY : tests/WorldEditorTests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -995,10 +1202,13 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... WorldwrightAdtWriter"
+	@echo "... WorldwrightEditorCore"
 	@echo "... WorldwrightWdtReader"
 	@echo "... WorldwrightWdtWriter"
+	@echo "... worldwright"
 	@echo "... worldwright-adt-create"
 	@echo "... worldwright-adt-writer-tests"
+	@echo "... worldwright-editor-core-tests"
 	@echo "... worldwright-wdt-create"
 	@echo "... worldwright-wdt-info"
 	@echo "... worldwright-wdt-test-fixtures"
@@ -1007,6 +1217,9 @@ help:
 	@echo "... src/worldwright/AdtWriter.o"
 	@echo "... src/worldwright/AdtWriter.i"
 	@echo "... src/worldwright/AdtWriter.s"
+	@echo "... src/worldwright/EditorInteraction.o"
+	@echo "... src/worldwright/EditorInteraction.i"
+	@echo "... src/worldwright/EditorInteraction.s"
 	@echo "... src/worldwright/TerrainDefinition.o"
 	@echo "... src/worldwright/TerrainDefinition.i"
 	@echo "... src/worldwright/TerrainDefinition.s"
@@ -1019,12 +1232,27 @@ help:
 	@echo "... src/worldwright/WorldDefinition.o"
 	@echo "... src/worldwright/WorldDefinition.i"
 	@echo "... src/worldwright/WorldDefinition.s"
+	@echo "... src/worldwright/WorldEditorModel.o"
+	@echo "... src/worldwright/WorldEditorModel.i"
+	@echo "... src/worldwright/WorldEditorModel.s"
+	@echo "... src/worldwright/WorldExporter.o"
+	@echo "... src/worldwright/WorldExporter.i"
+	@echo "... src/worldwright/WorldExporter.s"
 	@echo "... src/worldwright/adt_create_main.o"
 	@echo "... src/worldwright/adt_create_main.i"
 	@echo "... src/worldwright/adt_create_main.s"
 	@echo "... src/worldwright/create_main.o"
 	@echo "... src/worldwright/create_main.i"
 	@echo "... src/worldwright/create_main.s"
+	@echo "... src/worldwright/gui/MainWindow.o"
+	@echo "... src/worldwright/gui/MainWindow.i"
+	@echo "... src/worldwright/gui/MainWindow.s"
+	@echo "... src/worldwright/gui/WorldMapWidget.o"
+	@echo "... src/worldwright/gui/WorldMapWidget.i"
+	@echo "... src/worldwright/gui/WorldMapWidget.s"
+	@echo "... src/worldwright/gui/gui_main.o"
+	@echo "... src/worldwright/gui/gui_main.i"
+	@echo "... src/worldwright/gui/gui_main.s"
 	@echo "... src/worldwright/main.o"
 	@echo "... src/worldwright/main.i"
 	@echo "... src/worldwright/main.s"
@@ -1040,6 +1268,9 @@ help:
 	@echo "... tests/WdtWriterTests.o"
 	@echo "... tests/WdtWriterTests.i"
 	@echo "... tests/WdtWriterTests.s"
+	@echo "... tests/WorldEditorTests.o"
+	@echo "... tests/WorldEditorTests.i"
+	@echo "... tests/WorldEditorTests.s"
 .PHONY : help
 
 

@@ -29,13 +29,16 @@
 /home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightWdtReader.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightWdtWriter.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightAdtWriter.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/WorldwrightEditorCore.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-info.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-create.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-adt-create.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-tests.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-test-fixtures.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-wdt-writer-tests.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-adt-writer-tests.dir
+/home/smithkt/git/Worldwright/build/CMakeFiles/worldwright-editor-core-tests.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/test.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/edit_cache.dir
 /home/smithkt/git/Worldwright/build/CMakeFiles/rebuild_cache.dir

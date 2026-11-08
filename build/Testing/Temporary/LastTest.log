@@ -1,10 +1,10 @@
-Start testing: Nov 08 07:58 EST
+Start testing: Nov 08 09:41 EST
 ----------------------------------------------------------
-1/7 Testing: wdt_reader_unit
-1/7 Test: wdt_reader_unit
+1/8 Testing: wdt_reader_unit
+1/8 Test: wdt_reader_unit
 Command: "/home/smithkt/git/Worldwright/build/worldwright-wdt-tests"
 Directory: /home/smithkt/git/Worldwright/build
-"wdt_reader_unit" start time: Nov 08 07:58 EST
+"wdt_reader_unit" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 Worldwright WDT Reader Test Suite
@@ -72,15 +72,15 @@ Checks: 219, failures: 0
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"wdt_reader_unit" end time: Nov 08 07:58 EST
+"wdt_reader_unit" end time: Nov 08 09:41 EST
 "wdt_reader_unit" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-2/7 Testing: wdt_writer_unit
-2/7 Test: wdt_writer_unit
+2/8 Testing: wdt_writer_unit
+2/8 Test: wdt_writer_unit
 Command: "/home/smithkt/git/Worldwright/build/worldwright-wdt-writer-tests"
 Directory: /home/smithkt/git/Worldwright/build
-"wdt_writer_unit" start time: Nov 08 07:58 EST
+"wdt_writer_unit" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 Worldwright WDT Writer Test Suite
@@ -160,46 +160,46 @@ Checks: 359, failures: 0
 Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"wdt_writer_unit" end time: Nov 08 07:58 EST
+"wdt_writer_unit" end time: Nov 08 09:41 EST
 "wdt_writer_unit" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-3/7 Testing: wdt_fixtures
-3/7 Test: wdt_fixtures
+3/8 Testing: wdt_fixtures
+3/8 Test: wdt_fixtures
 Command: "/home/smithkt/git/Worldwright/build/worldwright-wdt-test-fixtures" "/home/smithkt/git/Worldwright/build/test-fixtures"
 Directory: /home/smithkt/git/Worldwright/build
-"wdt_fixtures" start time: Nov 08 07:58 EST
+"wdt_fixtures" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 <end of output>
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"wdt_fixtures" end time: Nov 08 07:58 EST
+"wdt_fixtures" end time: Nov 08 09:41 EST
 "wdt_fixtures" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-4/7 Testing: wdt_cli
-4/7 Test: wdt_cli
+4/8 Testing: wdt_cli
+4/8 Test: wdt_cli
 Command: "/usr/bin/cmake" "-DCLI=/home/smithkt/git/Worldwright/build/worldwright-wdt-info" "-DFIXTURE_DIR=/home/smithkt/git/Worldwright/build/test-fixtures" "-P" "/home/smithkt/git/Worldwright/tests/CliTests.cmake"
 Directory: /home/smithkt/git/Worldwright/build
-"wdt_cli" start time: Nov 08 07:58 EST
+"wdt_cli" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 -- CLI checks passed
 <end of output>
-Test time =   0.04 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"wdt_cli" end time: Nov 08 07:58 EST
+"wdt_cli" end time: Nov 08 09:41 EST
 "wdt_cli" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-5/7 Testing: wdt_create_cli
-5/7 Test: wdt_create_cli
+5/8 Testing: wdt_create_cli
+5/8 Test: wdt_create_cli
 Command: "/usr/bin/cmake" "-DCREATE_CLI=/home/smithkt/git/Worldwright/build/worldwright-wdt-create" "-DINFO_CLI=/home/smithkt/git/Worldwright/build/worldwright-wdt-info" "-DWORK_DIR=/home/smithkt/git/Worldwright/build/create-cli-work" "-P" "/home/smithkt/git/Worldwright/tests/WdtCreateCliTests.cmake"
 Directory: /home/smithkt/git/Worldwright/build
-"wdt_create_cli" start time: Nov 08 07:58 EST
+"wdt_create_cli" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 -- WDT create CLI checks passed
@@ -207,15 +207,15 @@ Output:
 Test time =   0.07 sec
 ----------------------------------------------------------
 Test Passed.
-"wdt_create_cli" end time: Nov 08 07:58 EST
+"wdt_create_cli" end time: Nov 08 09:41 EST
 "wdt_create_cli" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-6/7 Testing: adt_writer_unit
-6/7 Test: adt_writer_unit
+6/8 Testing: adt_writer_unit
+6/8 Test: adt_writer_unit
 Command: "/home/smithkt/git/Worldwright/build/worldwright-adt-writer-tests"
 Directory: /home/smithkt/git/Worldwright/build
-"adt_writer_unit" start time: Nov 08 07:58 EST
+"adt_writer_unit" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 ADT writer checks: 152931, failures: 0
@@ -223,15 +223,15 @@ ADT writer checks: 152931, failures: 0
 Test time =   0.10 sec
 ----------------------------------------------------------
 Test Passed.
-"adt_writer_unit" end time: Nov 08 07:58 EST
+"adt_writer_unit" end time: Nov 08 09:41 EST
 "adt_writer_unit" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-7/7 Testing: adt_create_cli
-7/7 Test: adt_create_cli
+7/8 Testing: adt_create_cli
+7/8 Test: adt_create_cli
 Command: "/usr/bin/cmake" "-DCREATE_CLI=/home/smithkt/git/Worldwright/build/worldwright-adt-create" "-DWORK_DIR=/home/smithkt/git/Worldwright/build/adt-create-cli-work" "-P" "/home/smithkt/git/Worldwright/tests/AdtCreateCliTests.cmake"
 Directory: /home/smithkt/git/Worldwright/build
-"adt_create_cli" start time: Nov 08 07:58 EST
+"adt_create_cli" start time: Nov 08 09:41 EST
 Output:
 ----------------------------------------------------------
 Generated: /home/smithkt/git/Worldwright/build/adt-create-cli-work/empty/Empty.wdt
@@ -288,8 +288,24 @@ Bytes written: 320708
 Test time =   0.15 sec
 ----------------------------------------------------------
 Test Passed.
-"adt_create_cli" end time: Nov 08 07:58 EST
+"adt_create_cli" end time: Nov 08 09:41 EST
 "adt_create_cli" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Nov 08 07:58 EST
+8/8 Testing: editor_core_unit
+8/8 Test: editor_core_unit
+Command: "/home/smithkt/git/Worldwright/build/worldwright-editor-core-tests"
+Directory: /home/smithkt/git/Worldwright/build
+"editor_core_unit" start time: Nov 08 09:41 EST
+Output:
+----------------------------------------------------------
+Editor core checks: 161, failures: 0
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"editor_core_unit" end time: Nov 08 09:41 EST
+"editor_core_unit" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 08 09:41 EST

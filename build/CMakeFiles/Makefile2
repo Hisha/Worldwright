@@ -66,26 +66,32 @@ CMAKE_BINARY_DIR = /home/smithkt/git/Worldwright/build
 all: CMakeFiles/WorldwrightWdtReader.dir/all
 all: CMakeFiles/WorldwrightWdtWriter.dir/all
 all: CMakeFiles/WorldwrightAdtWriter.dir/all
+all: CMakeFiles/WorldwrightEditorCore.dir/all
 all: CMakeFiles/worldwright-wdt-info.dir/all
 all: CMakeFiles/worldwright-wdt-create.dir/all
 all: CMakeFiles/worldwright-adt-create.dir/all
+all: CMakeFiles/worldwright.dir/all
 all: CMakeFiles/worldwright-wdt-tests.dir/all
 all: CMakeFiles/worldwright-wdt-test-fixtures.dir/all
 all: CMakeFiles/worldwright-wdt-writer-tests.dir/all
 all: CMakeFiles/worldwright-adt-writer-tests.dir/all
+all: CMakeFiles/worldwright-editor-core-tests.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/WorldwrightWdtReader.dir/codegen
 codegen: CMakeFiles/WorldwrightWdtWriter.dir/codegen
 codegen: CMakeFiles/WorldwrightAdtWriter.dir/codegen
+codegen: CMakeFiles/WorldwrightEditorCore.dir/codegen
 codegen: CMakeFiles/worldwright-wdt-info.dir/codegen
 codegen: CMakeFiles/worldwright-wdt-create.dir/codegen
 codegen: CMakeFiles/worldwright-adt-create.dir/codegen
+codegen: CMakeFiles/worldwright.dir/codegen
 codegen: CMakeFiles/worldwright-wdt-tests.dir/codegen
 codegen: CMakeFiles/worldwright-wdt-test-fixtures.dir/codegen
 codegen: CMakeFiles/worldwright-wdt-writer-tests.dir/codegen
 codegen: CMakeFiles/worldwright-adt-writer-tests.dir/codegen
+codegen: CMakeFiles/worldwright-editor-core-tests.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -124,13 +130,16 @@ clean: CMakeFiles/ContinuousSubmit.dir/clean
 clean: CMakeFiles/WorldwrightWdtReader.dir/clean
 clean: CMakeFiles/WorldwrightWdtWriter.dir/clean
 clean: CMakeFiles/WorldwrightAdtWriter.dir/clean
+clean: CMakeFiles/WorldwrightEditorCore.dir/clean
 clean: CMakeFiles/worldwright-wdt-info.dir/clean
 clean: CMakeFiles/worldwright-wdt-create.dir/clean
 clean: CMakeFiles/worldwright-adt-create.dir/clean
+clean: CMakeFiles/worldwright.dir/clean
 clean: CMakeFiles/worldwright-wdt-tests.dir/clean
 clean: CMakeFiles/worldwright-wdt-test-fixtures.dir/clean
 clean: CMakeFiles/worldwright-wdt-writer-tests.dir/clean
 clean: CMakeFiles/worldwright-adt-writer-tests.dir/clean
+clean: CMakeFiles/worldwright-editor-core-tests.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -1036,7 +1045,7 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 CMakeFiles/WorldwrightWdtReader.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=4,5 "Built target WorldwrightWdtReader"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=8,9 "Built target WorldwrightWdtReader"
 .PHONY : CMakeFiles/WorldwrightWdtReader.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1053,7 +1062,7 @@ WorldwrightWdtReader: CMakeFiles/WorldwrightWdtReader.dir/rule
 # codegen rule for target.
 CMakeFiles/WorldwrightWdtReader.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtReader.dir/build.make CMakeFiles/WorldwrightWdtReader.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=4,5 "Finished codegen for target WorldwrightWdtReader"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=8,9 "Finished codegen for target WorldwrightWdtReader"
 .PHONY : CMakeFiles/WorldwrightWdtReader.dir/codegen
 
 # clean rule for target.
@@ -1068,7 +1077,7 @@ CMakeFiles/WorldwrightWdtReader.dir/clean:
 CMakeFiles/WorldwrightWdtWriter.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=6,7,8 "Built target WorldwrightWdtWriter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=10,11,12 "Built target WorldwrightWdtWriter"
 .PHONY : CMakeFiles/WorldwrightWdtWriter.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1085,7 +1094,7 @@ WorldwrightWdtWriter: CMakeFiles/WorldwrightWdtWriter.dir/rule
 # codegen rule for target.
 CMakeFiles/WorldwrightWdtWriter.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightWdtWriter.dir/build.make CMakeFiles/WorldwrightWdtWriter.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=6,7,8 "Finished codegen for target WorldwrightWdtWriter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=10,11,12 "Finished codegen for target WorldwrightWdtWriter"
 .PHONY : CMakeFiles/WorldwrightWdtWriter.dir/codegen
 
 # clean rule for target.
@@ -1126,13 +1135,46 @@ CMakeFiles/WorldwrightAdtWriter.dir/clean:
 .PHONY : CMakeFiles/WorldwrightAdtWriter.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/WorldwrightEditorCore.dir
+
+# All Build rule for target.
+CMakeFiles/WorldwrightEditorCore.dir/all: CMakeFiles/WorldwrightWdtWriter.dir/all
+CMakeFiles/WorldwrightEditorCore.dir/all: CMakeFiles/WorldwrightAdtWriter.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=4,5,6,7 "Built target WorldwrightEditorCore"
+.PHONY : CMakeFiles/WorldwrightEditorCore.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/WorldwrightEditorCore.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smithkt/git/Worldwright/build/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/WorldwrightEditorCore.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smithkt/git/Worldwright/build/CMakeFiles 0
+.PHONY : CMakeFiles/WorldwrightEditorCore.dir/rule
+
+# Convenience name for target.
+WorldwrightEditorCore: CMakeFiles/WorldwrightEditorCore.dir/rule
+.PHONY : WorldwrightEditorCore
+
+# codegen rule for target.
+CMakeFiles/WorldwrightEditorCore.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=4,5,6,7 "Finished codegen for target WorldwrightEditorCore"
+.PHONY : CMakeFiles/WorldwrightEditorCore.dir/codegen
+
+# clean rule for target.
+CMakeFiles/WorldwrightEditorCore.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/WorldwrightEditorCore.dir/build.make CMakeFiles/WorldwrightEditorCore.dir/clean
+.PHONY : CMakeFiles/WorldwrightEditorCore.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/worldwright-wdt-info.dir
 
 # All Build rule for target.
 CMakeFiles/worldwright-wdt-info.dir/all: CMakeFiles/WorldwrightWdtReader.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-info.dir/build.make CMakeFiles/worldwright-wdt-info.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-info.dir/build.make CMakeFiles/worldwright-wdt-info.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=15,16 "Built target worldwright-wdt-info"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=25,26 "Built target worldwright-wdt-info"
 .PHONY : CMakeFiles/worldwright-wdt-info.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1149,7 +1191,7 @@ worldwright-wdt-info: CMakeFiles/worldwright-wdt-info.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-wdt-info.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-info.dir/build.make CMakeFiles/worldwright-wdt-info.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=15,16 "Finished codegen for target worldwright-wdt-info"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=25,26 "Finished codegen for target worldwright-wdt-info"
 .PHONY : CMakeFiles/worldwright-wdt-info.dir/codegen
 
 # clean rule for target.
@@ -1164,7 +1206,7 @@ CMakeFiles/worldwright-wdt-info.dir/clean:
 CMakeFiles/worldwright-wdt-create.dir/all: CMakeFiles/WorldwrightWdtWriter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=13,14 "Built target worldwright-wdt-create"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=23,24 "Built target worldwright-wdt-create"
 .PHONY : CMakeFiles/worldwright-wdt-create.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1181,7 +1223,7 @@ worldwright-wdt-create: CMakeFiles/worldwright-wdt-create.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-wdt-create.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-create.dir/build.make CMakeFiles/worldwright-wdt-create.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=13,14 "Finished codegen for target worldwright-wdt-create"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=23,24 "Finished codegen for target worldwright-wdt-create"
 .PHONY : CMakeFiles/worldwright-wdt-create.dir/codegen
 
 # clean rule for target.
@@ -1197,7 +1239,7 @@ CMakeFiles/worldwright-adt-create.dir/all: CMakeFiles/WorldwrightWdtWriter.dir/a
 CMakeFiles/worldwright-adt-create.dir/all: CMakeFiles/WorldwrightAdtWriter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=9,10 "Built target worldwright-adt-create"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=17,18 "Built target worldwright-adt-create"
 .PHONY : CMakeFiles/worldwright-adt-create.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1214,7 +1256,7 @@ worldwright-adt-create: CMakeFiles/worldwright-adt-create.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-adt-create.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-create.dir/build.make CMakeFiles/worldwright-adt-create.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=9,10 "Finished codegen for target worldwright-adt-create"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=17,18 "Finished codegen for target worldwright-adt-create"
 .PHONY : CMakeFiles/worldwright-adt-create.dir/codegen
 
 # clean rule for target.
@@ -1223,13 +1265,47 @@ CMakeFiles/worldwright-adt-create.dir/clean:
 .PHONY : CMakeFiles/worldwright-adt-create.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/worldwright.dir
+
+# All Build rule for target.
+CMakeFiles/worldwright.dir/all: CMakeFiles/WorldwrightWdtWriter.dir/all
+CMakeFiles/worldwright.dir/all: CMakeFiles/WorldwrightAdtWriter.dir/all
+CMakeFiles/worldwright.dir/all: CMakeFiles/WorldwrightEditorCore.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=13,14,15,16 "Built target worldwright"
+.PHONY : CMakeFiles/worldwright.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/worldwright.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smithkt/git/Worldwright/build/CMakeFiles 14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/worldwright.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smithkt/git/Worldwright/build/CMakeFiles 0
+.PHONY : CMakeFiles/worldwright.dir/rule
+
+# Convenience name for target.
+worldwright: CMakeFiles/worldwright.dir/rule
+.PHONY : worldwright
+
+# codegen rule for target.
+CMakeFiles/worldwright.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=13,14,15,16 "Finished codegen for target worldwright"
+.PHONY : CMakeFiles/worldwright.dir/codegen
+
+# clean rule for target.
+CMakeFiles/worldwright.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright.dir/build.make CMakeFiles/worldwright.dir/clean
+.PHONY : CMakeFiles/worldwright.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/worldwright-wdt-tests.dir
 
 # All Build rule for target.
 CMakeFiles/worldwright-wdt-tests.dir/all: CMakeFiles/WorldwrightWdtReader.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=19,20 "Built target worldwright-wdt-tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=29,30 "Built target worldwright-wdt-tests"
 .PHONY : CMakeFiles/worldwright-wdt-tests.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1246,7 +1322,7 @@ worldwright-wdt-tests: CMakeFiles/worldwright-wdt-tests.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-wdt-tests.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-tests.dir/build.make CMakeFiles/worldwright-wdt-tests.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=19,20 "Finished codegen for target worldwright-wdt-tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=29,30 "Finished codegen for target worldwright-wdt-tests"
 .PHONY : CMakeFiles/worldwright-wdt-tests.dir/codegen
 
 # clean rule for target.
@@ -1261,7 +1337,7 @@ CMakeFiles/worldwright-wdt-tests.dir/clean:
 CMakeFiles/worldwright-wdt-test-fixtures.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=17,18 "Built target worldwright-wdt-test-fixtures"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=27,28 "Built target worldwright-wdt-test-fixtures"
 .PHONY : CMakeFiles/worldwright-wdt-test-fixtures.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1278,7 +1354,7 @@ worldwright-wdt-test-fixtures: CMakeFiles/worldwright-wdt-test-fixtures.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-wdt-test-fixtures.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-test-fixtures.dir/build.make CMakeFiles/worldwright-wdt-test-fixtures.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=17,18 "Finished codegen for target worldwright-wdt-test-fixtures"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=27,28 "Finished codegen for target worldwright-wdt-test-fixtures"
 .PHONY : CMakeFiles/worldwright-wdt-test-fixtures.dir/codegen
 
 # clean rule for target.
@@ -1294,7 +1370,7 @@ CMakeFiles/worldwright-wdt-writer-tests.dir/all: CMakeFiles/WorldwrightWdtReader
 CMakeFiles/worldwright-wdt-writer-tests.dir/all: CMakeFiles/WorldwrightWdtWriter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=21,22 "Built target worldwright-wdt-writer-tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=31,32 "Built target worldwright-wdt-writer-tests"
 .PHONY : CMakeFiles/worldwright-wdt-writer-tests.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1311,7 +1387,7 @@ worldwright-wdt-writer-tests: CMakeFiles/worldwright-wdt-writer-tests.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-wdt-writer-tests.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-wdt-writer-tests.dir/build.make CMakeFiles/worldwright-wdt-writer-tests.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=21,22 "Finished codegen for target worldwright-wdt-writer-tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=31,32 "Finished codegen for target worldwright-wdt-writer-tests"
 .PHONY : CMakeFiles/worldwright-wdt-writer-tests.dir/codegen
 
 # clean rule for target.
@@ -1326,7 +1402,7 @@ CMakeFiles/worldwright-wdt-writer-tests.dir/clean:
 CMakeFiles/worldwright-adt-writer-tests.dir/all: CMakeFiles/WorldwrightAdtWriter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=11,12 "Built target worldwright-adt-writer-tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=19,20 "Built target worldwright-adt-writer-tests"
 .PHONY : CMakeFiles/worldwright-adt-writer-tests.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1343,13 +1419,48 @@ worldwright-adt-writer-tests: CMakeFiles/worldwright-adt-writer-tests.dir/rule
 # codegen rule for target.
 CMakeFiles/worldwright-adt-writer-tests.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=11,12 "Finished codegen for target worldwright-adt-writer-tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=19,20 "Finished codegen for target worldwright-adt-writer-tests"
 .PHONY : CMakeFiles/worldwright-adt-writer-tests.dir/codegen
 
 # clean rule for target.
 CMakeFiles/worldwright-adt-writer-tests.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-adt-writer-tests.dir/build.make CMakeFiles/worldwright-adt-writer-tests.dir/clean
 .PHONY : CMakeFiles/worldwright-adt-writer-tests.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/worldwright-editor-core-tests.dir
+
+# All Build rule for target.
+CMakeFiles/worldwright-editor-core-tests.dir/all: CMakeFiles/WorldwrightWdtReader.dir/all
+CMakeFiles/worldwright-editor-core-tests.dir/all: CMakeFiles/WorldwrightWdtWriter.dir/all
+CMakeFiles/worldwright-editor-core-tests.dir/all: CMakeFiles/WorldwrightAdtWriter.dir/all
+CMakeFiles/worldwright-editor-core-tests.dir/all: CMakeFiles/WorldwrightEditorCore.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=21,22 "Built target worldwright-editor-core-tests"
+.PHONY : CMakeFiles/worldwright-editor-core-tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/worldwright-editor-core-tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smithkt/git/Worldwright/build/CMakeFiles 14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/worldwright-editor-core-tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smithkt/git/Worldwright/build/CMakeFiles 0
+.PHONY : CMakeFiles/worldwright-editor-core-tests.dir/rule
+
+# Convenience name for target.
+worldwright-editor-core-tests: CMakeFiles/worldwright-editor-core-tests.dir/rule
+.PHONY : worldwright-editor-core-tests
+
+# codegen rule for target.
+CMakeFiles/worldwright-editor-core-tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/smithkt/git/Worldwright/build/CMakeFiles --progress-num=21,22 "Finished codegen for target worldwright-editor-core-tests"
+.PHONY : CMakeFiles/worldwright-editor-core-tests.dir/codegen
+
+# clean rule for target.
+CMakeFiles/worldwright-editor-core-tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/worldwright-editor-core-tests.dir/build.make CMakeFiles/worldwright-editor-core-tests.dir/clean
+.PHONY : CMakeFiles/worldwright-editor-core-tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
