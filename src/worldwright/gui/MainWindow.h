@@ -23,9 +23,11 @@ namespace worldwright::gui {
 
 class WorldMapWidget;
 class TerrainDetailWidget;
+class Terrain3DWidget;
 enum class TerrainTool;
+enum class Terrain3DTool;
 
-enum class WorkspaceMode { WorldLayout, TerrainDetail };
+enum class WorkspaceMode { WorldLayout, TerrainDetail, Terrain3D };
 
 class MainWindow final : public QMainWindow {
 public:
@@ -33,6 +35,7 @@ public:
 
     WorkspaceMode workspaceMode() const noexcept;
     bool enterTerrainDetail();
+    void enterTerrain3D();
     void returnToWorldLayout();
     bool setActiveTerrainTile(TileCoord tile);
     WorldEditorModel& model() noexcept;
@@ -52,20 +55,28 @@ private:
     void applyElevation();
     void refreshActiveTerrainChoices();
     void setTerrainTool(TerrainTool tool);
+    void setTerrain3DTool(Terrain3DTool tool);
+    void setSharedBrushRadius(double radius);
+    void setSharedBrushStrength(double strength);
 
     WorldEditorModel m_model;
     WorldMapWidget* m_map = nullptr;
     TerrainDetailWidget* m_terrainDetail = nullptr;
+    Terrain3DWidget* m_terrain3D = nullptr;
     QStackedWidget* m_workspaces = nullptr;
     QWidget* m_layoutPage = nullptr;
     QWidget* m_detailPage = nullptr;
+    QWidget* m_terrain3DPage = nullptr;
     QToolBar* m_layoutToolbar = nullptr;
     QToolBar* m_detailToolbar = nullptr;
+    QToolBar* m_terrain3DToolbar = nullptr;
     QAction* m_editTerrainAction = nullptr;
     QAction* m_returnAction = nullptr;
     QComboBox* m_activeTerrain = nullptr;
     QDoubleSpinBox* m_brushRadius = nullptr;
     QDoubleSpinBox* m_brushStrength = nullptr;
+    QDoubleSpinBox* m_brushRadius3D = nullptr;
+    QDoubleSpinBox* m_brushStrength3D = nullptr;
     QTreeWidget* m_worldTree = nullptr;
     QTreeWidgetItem* m_terrainTreeItem = nullptr;
     QLineEdit* m_nameEdit = nullptr;

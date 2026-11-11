@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 
 #include "TerrainDetailWidget.h"
+#include "Terrain3DWidget.h"
 #include "WorldMapWidget.h"
 #include "worldwright/WorldExporter.h"
 
@@ -11,6 +12,7 @@
 #include <QDoubleSpinBox>
 #include <QFileDialog>
 #include <QFormLayout>
+#include <QGuiApplication>
 #include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
@@ -18,6 +20,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QShortcut>
+#include <QSignalBlocker>
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QStatusBar>
@@ -25,6 +28,7 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
+#include <algorithm>
 #include <filesystem>
 
 namespace worldwright::gui {
@@ -51,6 +55,10 @@ void MainWindow::buildUi() {
     connect(quitAction, &QAction::triggered, this, &QWidget::close);
 
     auto* viewMenu = menuBar()->addMenu("&View");
+    auto* worldLayoutAction = viewMenu->addAction("&World Layout");
+    auto* terrainDetailAction = viewMenu->addAction("&Terrain Detail");
+    auto* terrain3DAction = viewMenu->addAction("&3D View");
+    viewMenu->addSeparator();
     auto* fitAction = viewMenu->addAction("&Fit World");
     auto* resetAction = viewMenu->addAction("&Reset View");
     m_editTerrainAction = viewMenu->addAction("Edit &Terrain");
@@ -64,6 +72,16 @@ void MainWindow::buildUi() {
     });
     connect(m_returnAction, &QAction::triggered, this,
             [this] { returnToWorldLayout(); });
+    connect(worldLayoutAction, &QAction::triggered, this,
+            [this] { returnToWorldLayout(); });
+    connect(terrainDetailAction, &QAction::triggered, this, [this] {
+        if (!enterTerrainDetail()) {
+            QMessageBox::information(this, "Edit Terrain",
+                                     "Select one enabled terrain tile first.");
+        }
+    });
+    connect(terrain3DAction, &QAction::triggered, this,
+            [this] { enterTerrain3D(); });
 
     m_layoutToolbar = addToolBar("World Layout Tools");
     m_layoutToolbar->setObjectName("worldLayoutToolbar");
@@ -113,6 +131,43 @@ void MainWindow::buildUi() {
     m_detailToolbar->addAction(m_returnAction);
     m_detailToolbar->setVisible(false);
 
+    m_terrain3DToolbar = addToolBar("3D View Tools");
+    m_terrain3DToolbar->setObjectName("terrain3DToolbar");
+    m_terrain3DToolbar->setMovable(false);
+    m_terrain3DToolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    auto* terrain3DGroup = new QActionGroup(m_terrain3DToolbar);
+    terrain3DGroup->setExclusive(true);
+    const auto addTerrain3DTool = [this, terrain3DGroup](
+                                      const QString& label,
+                                      Terrain3DTool tool) {
+        auto* action = m_terrain3DToolbar->addAction(label);
+        action->setObjectName("terrain3D" + label + "Action");
+        action->setCheckable(true);
+        terrain3DGroup->addAction(action);
+        connect(action, &QAction::triggered, this,
+                [this, tool] { setTerrain3DTool(tool); });
+        return action;
+    };
+    auto* navigate3DAction =
+        addTerrain3DTool("Navigate", Terrain3DTool::Navigate);
+    addTerrain3DTool("Raise", Terrain3DTool::Raise);
+    addTerrain3DTool("Lower", Terrain3DTool::Lower);
+    addTerrain3DTool("Smooth", Terrain3DTool::Smooth);
+    navigate3DAction->setChecked(true);
+    m_terrain3DToolbar->addSeparator();
+    auto* fit3DAction = m_terrain3DToolbar->addAction("Fit");
+    auto* reset3DAction = m_terrain3DToolbar->addAction("Reset");
+    auto* refresh3DAction = m_terrain3DToolbar->addAction("Refresh");
+    m_terrain3DToolbar->addSeparator();
+    auto* wireframeAction = m_terrain3DToolbar->addAction("Wireframe");
+    wireframeAction->setCheckable(true);
+    auto* boundariesAction = m_terrain3DToolbar->addAction("ADT Boundaries");
+    boundariesAction->setCheckable(true);
+    boundariesAction->setChecked(true);
+    m_terrain3DToolbar->addSeparator();
+    m_terrain3DToolbar->addAction(m_returnAction);
+    m_terrain3DToolbar->setVisible(false);
+
     auto* splitter = new QSplitter(this);
     setCentralWidget(splitter);
 
@@ -143,6 +198,9 @@ void MainWindow::buildUi() {
     controlsLayout->addWidget(enableButton);
     controlsLayout->addWidget(disableButton);
     controlsLayout->addWidget(editTerrainButton);
+    auto* view3DButton = new QPushButton("3D View", controls);
+    view3DButton->setObjectName("view3DButton");
+    controlsLayout->addWidget(view3DButton);
     controlsLayout->addStretch();
     controlsLayout->addWidget(resetViewButton);
     centerLayout->addWidget(controls);
@@ -156,6 +214,8 @@ void MainWindow::buildUi() {
                                      "Select one enabled terrain tile first.");
         }
     });
+    connect(view3DButton, &QPushButton::clicked, this,
+            [this] { enterTerrain3D(); });
 
     m_map = new WorldMapWidget(&m_model, center);
     centerLayout->addWidget(m_map, 1);
@@ -259,6 +319,102 @@ void MainWindow::buildUi() {
         m_zoomPercent = percent;
         updateStatus();
     };
+
+    m_terrain3DPage = new QWidget(m_workspaces);
+    auto* terrain3DLayout = new QVBoxLayout(m_terrain3DPage);
+    terrain3DLayout->setContentsMargins(8, 8, 8, 8);
+    auto* terrain3DControls = new QWidget(m_terrain3DPage);
+    auto* terrain3DControlsLayout = new QHBoxLayout(terrain3DControls);
+    terrain3DControlsLayout->setContentsMargins(0, 0, 0, 0);
+    m_brushRadius3D = new QDoubleSpinBox(terrain3DControls);
+    m_brushRadius3D->setObjectName("brushRadius3DSpin");
+    m_brushRadius3D->setRange(TerrainHeightEditor::CellSize * 0.25,
+                              TerrainHeightEditor::TileSize * 4.0);
+    m_brushRadius3D->setDecimals(2);
+    m_brushRadius3D->setSingleStep(TerrainHeightEditor::CellSize);
+    m_brushRadius3D->setSuffix(" world units");
+    m_brushRadius3D->setValue(m_brushRadius->value());
+    m_brushStrength3D = new QDoubleSpinBox(terrain3DControls);
+    m_brushStrength3D->setObjectName("brushStrength3DSpin");
+    m_brushStrength3D->setRange(0.01, 100.0);
+    m_brushStrength3D->setDecimals(2);
+    m_brushStrength3D->setSingleStep(0.25);
+    m_brushStrength3D->setValue(m_brushStrength->value());
+    terrain3DControlsLayout->addWidget(new QLabel("Radius", terrain3DControls));
+    terrain3DControlsLayout->addWidget(m_brushRadius3D);
+    terrain3DControlsLayout->addWidget(new QLabel("Strength", terrain3DControls));
+    terrain3DControlsLayout->addWidget(m_brushStrength3D);
+    terrain3DControlsLayout->addStretch();
+    terrain3DLayout->addWidget(terrain3DControls);
+    auto* terrain3DHelp = new QLabel(
+        "Navigate: left-drag orbits. Sculpt: left-drag applies the brush and "
+        "right-drag orbits. Middle-drag pans and the mouse wheel zooms in all "
+        "modes. The active ADT and its enabled neighbors are shown.",
+        m_terrain3DPage);
+    terrain3DHelp->setWordWrap(true);
+    terrain3DLayout->addWidget(terrain3DHelp);
+    // Qt's offscreen QPA plugin explicitly does not support QOpenGLWidget and
+    // can abort in GLX before initializeGL. Keep headless GUI tests usable and
+    // report the limitation in the page; desktop X11/Wayland paths create the
+    // actual hardware-accelerated viewport.
+    if (QGuiApplication::platformName() == QStringLiteral("offscreen")) {
+        auto* unavailable = new QLabel(
+            "3D View is unavailable with Qt's offscreen platform plugin. "
+            "Run Worldwright in an X11 or Wayland desktop session with an "
+            "OpenGL 3.3-capable driver.", m_terrain3DPage);
+        unavailable->setObjectName("terrain3DUnavailable");
+        unavailable->setAlignment(Qt::AlignCenter);
+        unavailable->setWordWrap(true);
+        terrain3DLayout->addWidget(unavailable, 1);
+    } else {
+        m_terrain3D = new Terrain3DWidget(&m_model, m_terrain3DPage);
+        terrain3DLayout->addWidget(m_terrain3D, 1);
+    }
+    m_workspaces->addWidget(m_terrain3DPage);
+    if (m_terrain3D != nullptr) {
+        connect(fit3DAction, &QAction::triggered, m_terrain3D,
+                &Terrain3DWidget::fitTerrain);
+        connect(reset3DAction, &QAction::triggered, m_terrain3D,
+                &Terrain3DWidget::resetCamera);
+        connect(refresh3DAction, &QAction::triggered, m_terrain3D,
+                &Terrain3DWidget::refreshTerrain);
+        connect(wireframeAction, &QAction::toggled, m_terrain3D,
+                &Terrain3DWidget::setWireframeVisible);
+        connect(boundariesAction, &QAction::toggled, m_terrain3D,
+                &Terrain3DWidget::setBoundariesVisible);
+        m_terrain3D->terrainChanged = [this] {
+            m_terrainDetail->invalidateTerrain();
+            refreshTerrainUi();
+        };
+        m_terrain3D->hoverChanged = [this](
+            std::optional<TerrainPickResult> hit) {
+            if (!hit.has_value()) {
+                m_hoverStatus->setText("Terrain: —");
+                return;
+            }
+            m_hoverStatus->setText(
+                "Terrain: " + QString::number(hit->terrain.x, 'f', 2) + ", " +
+                QString::number(hit->terrain.y, 'f', 2) + "  Elevation: " +
+                QString::number(hit->elevation, 'f', 2));
+        };
+    } else {
+        fit3DAction->setEnabled(false);
+        reset3DAction->setEnabled(false);
+        refresh3DAction->setEnabled(false);
+        wireframeAction->setEnabled(false);
+        boundariesAction->setEnabled(false);
+    }
+
+    connect(m_brushRadius, qOverload<double>(&QDoubleSpinBox::valueChanged),
+            this, [this](double value) { setSharedBrushRadius(value); });
+    connect(m_brushStrength, qOverload<double>(&QDoubleSpinBox::valueChanged),
+            this, [this](double value) { setSharedBrushStrength(value); });
+    connect(m_brushRadius3D,
+            qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+            [this](double value) { setSharedBrushRadius(value); });
+    connect(m_brushStrength3D,
+            qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+            [this](double value) { setSharedBrushStrength(value); });
 
     auto* properties = new QWidget(splitter);
     properties->setMinimumWidth(245);
@@ -384,6 +540,9 @@ void MainWindow::refreshAll() {
     root->setExpanded(true);
     refreshProperties();
     m_map->update();
+    if (m_workspaceMode == WorkspaceMode::Terrain3D && m_terrain3D != nullptr) {
+        m_terrain3D->refreshTerrain();
+    }
     updateStatus();
 }
 
@@ -410,6 +569,18 @@ void MainWindow::updateStatus() {
             if (m_terrainDetail->tool() == TerrainTool::Smooth) mode += " / Smooth";
             if (m_terrainDetail->tool() == TerrainTool::Pan) mode += " / Pan";
         }
+    } else if (m_workspaceMode == WorkspaceMode::Terrain3D) {
+        mode = "3D View";
+        if (m_terrain3D != nullptr) {
+            if (m_terrain3D->tool() == Terrain3DTool::Navigate)
+                mode += " / Navigate";
+            if (m_terrain3D->tool() == Terrain3DTool::Raise)
+                mode += " / Raise";
+            if (m_terrain3D->tool() == Terrain3DTool::Lower)
+                mode += " / Lower";
+            if (m_terrain3D->tool() == Terrain3DTool::Smooth)
+                mode += " / Smooth";
+        }
     } else {
         mode = "World Layout / Select";
         if (m_editMode == EditMode::PaintTerrain) mode = "World Layout / Paint Terrain";
@@ -421,6 +592,8 @@ void MainWindow::updateStatus() {
         if (m_hoverStatus->text().startsWith("Tile:")) {
             m_hoverStatus->setText("Terrain: —");
         }
+    } else if (m_workspaceMode == WorkspaceMode::Terrain3D) {
+        m_hoverStatus->setText("3D terrain viewport");
     } else if (m_hoveredTile.has_value()) {
         const bool enabled =
             m_model.world().hasTile(m_hoveredTile->x, m_hoveredTile->y);
@@ -538,11 +711,13 @@ bool MainWindow::enterTerrainDetail() {
         return false;
     }
     m_workspaceMode = WorkspaceMode::TerrainDetail;
+    setTerrainTool(m_terrainDetail->tool());
     refreshActiveTerrainChoices();
     setActiveTerrainTile(*selected);
     m_workspaces->setCurrentWidget(m_detailPage);
     m_layoutToolbar->setVisible(false);
     m_detailToolbar->setVisible(true);
+    m_terrain3DToolbar->setVisible(false);
     m_editTerrainAction->setVisible(false);
     m_returnAction->setVisible(true);
     m_hoverStatus->setText("Terrain: —");
@@ -550,14 +725,33 @@ bool MainWindow::enterTerrainDetail() {
     return true;
 }
 
+void MainWindow::enterTerrain3D() {
+    m_workspaceMode = WorkspaceMode::Terrain3D;
+    if (m_terrain3D != nullptr) setTerrain3DTool(m_terrain3D->tool());
+    m_workspaces->setCurrentWidget(m_terrain3DPage);
+    m_layoutToolbar->setVisible(false);
+    m_detailToolbar->setVisible(false);
+    m_terrain3DToolbar->setVisible(true);
+    m_editTerrainAction->setVisible(true);
+    m_returnAction->setVisible(true);
+    if (m_terrain3D != nullptr) {
+        m_terrain3D->refreshTerrain();
+        m_terrain3D->fitTerrain();
+    }
+    m_hoverStatus->setText("3D terrain viewport");
+    updateStatus();
+}
+
 void MainWindow::returnToWorldLayout() {
     if (m_workspaces == nullptr) {
         return;
     }
+    if (m_terrain3D != nullptr) m_terrain3D->cancelInteraction();
     m_workspaceMode = WorkspaceMode::WorldLayout;
     m_workspaces->setCurrentWidget(m_layoutPage);
     m_layoutToolbar->setVisible(true);
     m_detailToolbar->setVisible(false);
+    m_terrain3DToolbar->setVisible(false);
     m_editTerrainAction->setVisible(true);
     m_returnAction->setVisible(false);
     m_hoverStatus->setText("Tile: —");
@@ -605,6 +799,8 @@ void MainWindow::refreshActiveTerrainChoices() {
 }
 
 void MainWindow::setTerrainTool(TerrainTool tool) {
+    const double maximum = tool == TerrainTool::Smooth ? 1.0 : 100.0;
+    m_brushStrength3D->setMaximum(maximum);
     if (tool == TerrainTool::Smooth) {
         m_brushStrength->setMaximum(1.0);
         if (m_brushStrength->value() > 1.0) {
@@ -616,6 +812,42 @@ void MainWindow::setTerrainTool(TerrainTool tool) {
     m_terrainDetail->setTool(tool);
     m_terrainDetail->setBrushStrength(m_brushStrength->value());
     updateStatus();
+}
+
+void MainWindow::setTerrain3DTool(Terrain3DTool tool) {
+    const double maximum = tool == Terrain3DTool::Smooth ? 1.0 : 100.0;
+    m_brushStrength->setMaximum(maximum);
+    m_brushStrength3D->setMaximum(maximum);
+    if (m_brushStrength3D->value() > maximum)
+        setSharedBrushStrength(maximum);
+    if (m_terrain3D != nullptr) {
+        m_terrain3D->setTool(tool);
+        m_terrain3D->setBrushRadius(m_brushRadius3D->value());
+        m_terrain3D->setBrushStrength(m_brushStrength3D->value());
+    }
+    updateStatus();
+}
+
+void MainWindow::setSharedBrushRadius(double radius) {
+    if (m_brushRadius == nullptr || m_brushRadius3D == nullptr) return;
+    const QSignalBlocker detailBlocker(m_brushRadius);
+    const QSignalBlocker threeDBlocker(m_brushRadius3D);
+    m_brushRadius->setValue(radius);
+    m_brushRadius3D->setValue(radius);
+    m_terrainDetail->setBrushRadius(radius);
+    if (m_terrain3D != nullptr) m_terrain3D->setBrushRadius(radius);
+}
+
+void MainWindow::setSharedBrushStrength(double strength) {
+    if (m_brushStrength == nullptr || m_brushStrength3D == nullptr) return;
+    strength = std::min({strength, m_brushStrength->maximum(),
+                         m_brushStrength3D->maximum()});
+    const QSignalBlocker detailBlocker(m_brushStrength);
+    const QSignalBlocker threeDBlocker(m_brushStrength3D);
+    m_brushStrength->setValue(strength);
+    m_brushStrength3D->setValue(strength);
+    m_terrainDetail->setBrushStrength(strength);
+    if (m_terrain3D != nullptr) m_terrain3D->setBrushStrength(strength);
 }
 
 }  // namespace worldwright::gui

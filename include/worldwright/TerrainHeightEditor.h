@@ -43,6 +43,12 @@ public:
     // Linear falloff: max(0, 1 - distance / radius).
     static double influence(double distance, double radius) noexcept;
 
+    // True when the point lies in an enabled tile or exactly on the shared
+    // boundary/corner of one. Both 2D and 3D input paths use this ownership
+    // rule so an enabled tile's outermost vertices remain editable.
+    static bool editableAt(const WorldEditorModel& model,
+                           TerrainPoint point) noexcept;
+
     static TerrainPoint outerVertexPosition(int tileX, int tileY, int row,
                                             int column) noexcept;
     static TerrainPoint innerVertexPosition(int tileX, int tileY, int row,

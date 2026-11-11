@@ -1,10 +1,10 @@
 # Worldwright
 
 Worldwright is a standalone, open-source editor for creating World of Warcraft
-3.3.5a world definitions and terrain. W005B provides a 2D desktop editor with
-two workspaces: a 64 x 64 World Layout and an elevation-colored Terrain Detail
-canvas. Terrain Detail exposes the W005A raise, lower, smoothing, and cross-ADT
-brush engine while editing the same geometry later written to ADT files.
+3.3.5a world definitions and terrain. Its desktop editor provides a 64 x 64
+World Layout, an elevation-colored Terrain Detail sculpting canvas, and a
+hardware-accelerated 3D terrain viewport. All three views use the same terrain
+objects later written to ADT files.
 
 The repository also provides the existing command-line tools:
 
@@ -18,7 +18,8 @@ The graphical editor and command-line tools use the same `WorldDefinition`,
 ## Building
 
 Worldwright requires a C++17 compiler and CMake 3.16 or newer. The graphical
-application requires Qt 6.2 or newer with the Widgets component. On Ubuntu the
+application requires Qt 6.2 or newer with the Widgets and OpenGL components,
+plus an OpenGL 3.3-capable desktop driver. On Ubuntu the
 Qt development packages are:
 
 ```text
@@ -62,7 +63,9 @@ The GUI is never needed to run the core unit tests.
 5. With one enabled tile selected, choose **Edit Terrain** to open Terrain
    Detail. Choose **Return to World** to return to the layout without losing
    sculpted heights.
-6. Choose **File > Export World** and select an existing output directory.
+6. Choose **3D View** to inspect or sculpt the selected ADT and its enabled
+   neighbors.
+7. Choose **File > Export World** and select an existing output directory.
 
 ## Map tools and navigation
 
@@ -164,10 +167,48 @@ to prevent cracks and repeated-edit drift. See
 [the W005A terrain documentation](docs/TERRAIN_HEIGHT_EDITOR.md) for coordinate
 and seam policies.
 
+## 3D terrain sculpting
+
+Choose **View > 3D View** or the **3D View** button in World Layout. The view
+rebuilds its GPU buffers from the authoritative model on entry, showing the
+selected enabled ADT and enabled tiles in its 3 x 3 neighborhood. If the
+selection is unavailable, the first enabled ADT becomes the focus. Empty
+worlds are safe and display an empty viewport.
+
+- **Navigate** uses left-drag to orbit. **Raise**, **Lower**, and **Smooth** use
+  left-drag to sculpt through the same terrain engine as Terrain Detail.
+- Right-drag orbits while a sculpt tool is selected. Middle-drag pans parallel
+  to the screen in every tool.
+- The mouse wheel zooms; distance is clamped to valid values.
+- **Fit** frames current terrain and **Reset** restores the default
+  south-east-facing orientation.
+- **Wireframe** overlays actual mesh edges independently of the shaded fill.
+- **ADT Boundaries** independently shows enabled-tile perimeters.
+- **Refresh** explicitly rebuilds CPU and GPU render data from the model.
+
+The magenta brush ring follows the actual terrain triangles, including slopes
+and negative elevations, and uses the shared world-unit radius. Missing-terrain
+portions of the ring are omitted. Picking intersects the rendered triangles,
+not a flat elevation-zero plane. Drag paths are sampled every quarter radius,
+and cross-ADT samples retain the shared-edge and corner behavior of the 2D
+editor. Each edit refreshes positions and geometry-derived lighting normals
+without changing the camera or display toggles.
+
+Rendering uses OpenGL 3.3 core-profile shaders, vertex/index buffers, a vertex
+array object, depth testing, geometry-derived normals, and fixed ambient plus
+directional diffuse lighting. The mesh contains all 129 x 129 outer and
+128 x 128 inner vertices and the same four-triangle cell fans used by ADT
+normal generation. Rendering never mutates terrain or ADT output. See
+[the W006 implementation notes](docs/W006_3D_VIEWPORT.md) for architecture,
+performance, testing, and platform details.
+The picking, interaction, cursor, refresh, and W007 test design are documented
+in [the W007 implementation notes](docs/W007_3D_SCULPTING.md).
+
 ## Current limitations
 
-Terrain Detail is a 2D elevation visualization, not a 3D renderer. Tile images
-are cached and only brush-overlapped tiles are invalidated, but very large
+The 3D viewport intentionally displays only one ADT neighborhood and has no
+streaming or level of detail. Tile images are cached and only brush-overlapped
+tiles are invalidated, but very large
 brushes spanning many enabled ADTs can still take noticeable time because the
 correctness-first W005A operation and affected images run synchronously on the
 UI thread. There is no undo/redo or project-file persistence. Worldwright does

@@ -128,15 +128,7 @@ QPointF TerrainDetailWidget::screenAt(TerrainPoint point) const noexcept {
 }
 
 bool TerrainDetailWidget::editableAt(TerrainPoint point) const noexcept {
-    if (!std::isfinite(point.x) || !std::isfinite(point.y) || point.x < 0.0 ||
-        point.y < 0.0) {
-        return false;
-    }
-    const int x = static_cast<int>(std::floor(point.x /
-                                               TerrainHeightEditor::TileSize));
-    const int y = static_cast<int>(std::floor(point.y /
-                                               TerrainHeightEditor::TileSize));
-    return WorldDefinition::isValidTile(x, y) && m_model->world().hasTile(x, y);
+    return m_model != nullptr && TerrainHeightEditor::editableAt(*m_model, point);
 }
 
 void TerrainDetailWidget::paintEvent(QPaintEvent*) {

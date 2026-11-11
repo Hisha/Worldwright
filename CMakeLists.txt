@@ -79,8 +79,11 @@ endif()
 
 add_library(WorldwrightEditorCore
     src/worldwright/EditorInteraction.cpp
+    src/worldwright/TerrainCamera.cpp
     src/worldwright/TerrainDetailInteraction.cpp
     src/worldwright/TerrainHeightEditor.cpp
+    src/worldwright/TerrainMesh.cpp
+    src/worldwright/TerrainPicking.cpp
     src/worldwright/WorldEditorModel.cpp
     src/worldwright/WorldExporter.cpp
 )
@@ -124,19 +127,23 @@ worldwright_enable_warnings(worldwright-adt-create)
 # Optional Qt graphical editor
 # ---------------------------------------------------------------------------
 if(WORLDWRIGHT_BUILD_GUI)
-    find_package(Qt6 6.2 COMPONENTS Widgets QUIET)
-    if(Qt6Widgets_FOUND)
+    find_package(Qt6 6.2 COMPONENTS Widgets OpenGL OpenGLWidgets QUIET)
+    if(Qt6Widgets_FOUND AND Qt6OpenGL_FOUND AND Qt6OpenGLWidgets_FOUND)
         add_library(WorldwrightGui STATIC
             src/worldwright/gui/MainWindow.cpp
             src/worldwright/gui/MainWindow.h
             src/worldwright/gui/TerrainDetailWidget.cpp
             src/worldwright/gui/TerrainDetailWidget.h
+            src/worldwright/gui/Terrain3DWidget.cpp
+            src/worldwright/gui/Terrain3DWidget.h
             src/worldwright/gui/WorldMapWidget.cpp
             src/worldwright/gui/WorldMapWidget.h
         )
         target_link_libraries(WorldwrightGui PUBLIC
             WorldwrightEditorCore
             Qt6::Widgets
+            Qt6::OpenGL
+            Qt6::OpenGLWidgets
         )
         target_include_directories(WorldwrightGui PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/src/worldwright/gui
@@ -147,7 +154,7 @@ if(WORLDWRIGHT_BUILD_GUI)
         worldwright_enable_warnings(worldwright)
     else()
         message(WARNING
-            "Qt 6 Widgets development files were not found; the worldwright "
+            "Qt 6 Widgets/OpenGL development files were not found; the worldwright "
             "GUI target will not be built. On Ubuntu install qt6-base-dev "
             "(and qt6-base-dev-tools), then reconfigure. CLI tools and tests "
             "remain available. Set WORLDWRIGHT_BUILD_GUI=OFF for an explicit "
@@ -293,6 +300,24 @@ if(BUILD_TESTING)
     )
     worldwright_enable_warnings(worldwright-terrain-detail-tests)
     add_test(NAME terrain_detail_unit COMMAND worldwright-terrain-detail-tests)
+
+    add_executable(worldwright-terrain-mesh-tests
+        tests/TerrainMeshTests.cpp
+    )
+    target_link_libraries(worldwright-terrain-mesh-tests PRIVATE
+        WorldwrightEditorCore
+    )
+    worldwright_enable_warnings(worldwright-terrain-mesh-tests)
+    add_test(NAME terrain_mesh_unit COMMAND worldwright-terrain-mesh-tests)
+
+    add_executable(worldwright-terrain-picking-tests
+        tests/TerrainPickingTests.cpp
+    )
+    target_link_libraries(worldwright-terrain-picking-tests PRIVATE
+        WorldwrightEditorCore
+    )
+    worldwright_enable_warnings(worldwright-terrain-picking-tests)
+    add_test(NAME terrain_picking_unit COMMAND worldwright-terrain-picking-tests)
 
     if(TARGET WorldwrightGui)
         add_executable(worldwright-terrain-detail-gui-tests

@@ -25,6 +25,14 @@ The primary build and W004 user guide is in the repository
 
 - [Terrain normals, serialized seam verification, and AzerothCore compatibility](W005C_TERRAIN_CORRECTNESS.md)
 
+## W006
+
+- [Interactive OpenGL 3D terrain viewport](W006_3D_VIEWPORT.md)
+
+## W007
+
+- [Direct 3D terrain sculpting](W007_3D_SCULPTING.md)
+
 ## W004
 
 - Optional Qt 6 Widgets graphical world-layout editor

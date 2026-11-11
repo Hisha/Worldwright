@@ -295,6 +295,30 @@ double TerrainHeightEditor::influence(double distance,
     return 1.0 - distance / radius;
 }
 
+bool TerrainHeightEditor::editableAt(const WorldEditorModel& model,
+                                     TerrainPoint point) noexcept {
+    if (!std::isfinite(point.x) || !std::isfinite(point.y) || point.x < 0.0 ||
+        point.y < 0.0) return false;
+    const double scaledX = point.x / TileSize;
+    const double scaledY = point.y / TileSize;
+    if (scaledX > WorldDefinition::GridWidth + 1e-7 ||
+        scaledY > WorldDefinition::GridHeight + 1e-7) return false;
+    const int baseX = static_cast<int>(std::floor(scaledX));
+    const int baseY = static_cast<int>(std::floor(scaledY));
+    constexpr double epsilon = 1e-7;
+    const bool xBoundary = std::abs(scaledX - std::round(scaledX)) <= epsilon;
+    const bool yBoundary = std::abs(scaledY - std::round(scaledY)) <= epsilon;
+    const int minimumX = xBoundary ? baseX - 1 : baseX;
+    const int minimumY = yBoundary ? baseY - 1 : baseY;
+    for (int tileY = minimumY; tileY <= baseY; ++tileY) {
+        for (int tileX = minimumX; tileX <= baseX; ++tileX) {
+            if (WorldDefinition::isValidTile(tileX, tileY) &&
+                model.world().hasTile(tileX, tileY)) return true;
+        }
+    }
+    return false;
+}
+
 TerrainPoint TerrainHeightEditor::outerVertexPosition(int tileX, int tileY,
                                                        int row,
                                                        int column) noexcept {
